@@ -9,6 +9,7 @@ cmdline
 
 install
 cdrom
+reboot
 
 # Run the Setup Agent on first boot
 firstboot --disable
@@ -33,7 +34,7 @@ timezone America/Chicago --isUtc --nontp
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 autopart --type=lvm
 # Partition clearing information
-clearpart --none --initlabel
+clearpart --drives=sda --initlabel
 
 %packages
 @^minimal
