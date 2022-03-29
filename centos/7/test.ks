@@ -4,11 +4,15 @@ auth --enableshadow --passalgo=sha512
 # Use CDROM installation media
 cdrom
 
-# Use text install
-text
+# install
+cmdline
+
+install
+cdrom
 
 # Run the Setup Agent on first boot
-firstboot --enable
+firstboot --disable
+
 ignoredisk --only-use=sda
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
