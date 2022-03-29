@@ -1,22 +1,17 @@
 #version=DEVEL
-
 # System authorization information
 auth --enableshadow --passalgo=sha512
-
 # Use CDROM installation media
 cdrom
 
-# Use graphical install
-graphical
+# Use text install
+text
 
 # Run the Setup Agent on first boot
 firstboot --enable
-
 ignoredisk --only-use=sda
-
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
-
 # System language
 lang en_US.UTF-8
 
@@ -26,13 +21,10 @@ network  --hostname=nms
 
 # Root password
 rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
-
 # System services
-
 services --disabled="chronyd"
 # System timezone
 timezone America/Chicago --isUtc --nontp
-
 # System bootloader configuration
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 autopart --type=lvm
