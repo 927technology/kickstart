@@ -34,7 +34,8 @@ timezone America/Chicago --isUtc --nontp
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 autopart --type=lvm
 # Partition clearing information
-clearpart --drives=sda --all --initlabel
+clearpart --all --drives=sda --initlabel
+zerombr
 
 %packages
 @^minimal
