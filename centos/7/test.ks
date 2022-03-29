@@ -1,3 +1,4 @@
+zerombr
 #version=DEVEL
 # System authorization information
 auth --enableshadow --passalgo=sha512
@@ -14,7 +15,6 @@ reboot
 # Run the Setup Agent on first boot
 firstboot --disable
 
-ignoredisk --only-use=sda
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
 # System language
@@ -26,16 +26,24 @@ network  --hostname=nms
 
 # Root password
 rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
+
+
+ignoredisk --only-use=sda
+zerombr
+clearpart --all --drives=sda --initlabel
+bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
+autopart --type=lvm
+
+
+
+
+
 # System services
 services --disabled="chronyd"
 # System timezone
 timezone America/Chicago --isUtc --nontp
 # System bootloader configuration
-bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
-autopart --type=lvm
 # Partition clearing information
-clearpart --all --drives=sda --initlabel
-zerombr
 
 %packages
 @^minimal
