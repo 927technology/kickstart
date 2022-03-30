@@ -3,15 +3,21 @@
 # System authorization information
 auth --enableshadow --passalgo=sha512
 
-# Use CDROM installation media
-cdrom
-
-# install
-cmdline
-
+# insall method
 install
-cdrom
+cmdline
+#cdrom
+url=http://mirror.centos.org/centos/7/os/x86_64/images/pxeboot/
 reboot
+
+#repositories
+repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64
+repo --name=updates --baseurl=http://mirror.centos.org/centos/7/updates/x86_64
+repo --name=extras --baseurl=http://mirror.centos.org/centos/7/extras/x86_64
+repo --name=centosplus --baseurl=http://mirror.centos.org/centos/7/centosplus/x86_64
+repo --name=epel --baseurl=http://mirrors.fedoraproject.org/pub/epel/7/SRPMS
+
+
 
 # Run the Setup Agent on first boot
 firstboot --disable
