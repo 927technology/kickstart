@@ -1,33 +1,61 @@
 #version=DEVEL
 # System authorization information
 auth --enableshadow --passalgo=sha512
-# Use CDROM installation media
-cdrom
-# Use graphical install
-graphical
-# Run the Setup Agent on first boot
-firstboot --enable
-ignoredisk --only-use=sda
+
+# Use Network installation
+url --url=https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/minimal.ks
+
+# Use text install
+text
+
+# Reboot after install
+Reboot
+
+# YUM Repisitories
+repo --name="Centos-7 - Base" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
+repo --name="Centos-7 - Updates" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates
+repo --name="Extra Packages for Enterprise Linux 7" --mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=x86_64
+
+# Disable the Setup Agent on first boot
+firstboot --disable
+
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
+
 # System language
 lang en_US.UTF-8
 
 # Network information
 network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
-network  --hostname=nms
+network  --hostname=host.domain.tld
 
 # Root password
 rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
+
 # System services
 services --disabled="chronyd"
+
 # System timezone
 timezone America/Chicago --isUtc --nontp
+
 # System bootloader configuration
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
-autopart --type=lvm
+
 # Partition clearing information
-clearpart --none --initlabel
+ignoredisk --only-use=sda
+clearpart --all --initlabel
+
+# Disk partitioning information
+part vp.336 --fstype="lvmpv" --ondisk=sda --size=28600
+part /boot --fstype="xfs" --ondisk-sda --size=1024
+volgroup system --pesize=4096 pv.336
+logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
+logvol / --fstype="xfs" --size=12288 --name=root --vgname=system
+logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
+logvol /var/log --fstype="xfs" --size=4066 --name=var_log --vgname=system
+logvol swap --fstype="swap" --size=2048 --name=swap --vgname=system
+logvol /tmp --fstype="xfs" --size=1024 --name=tmp --vgname=system
+logvol /var/log/audit --fstype="xfs" --size=4096 --name=var_log_audit --vgname=system
 
 %packages
 @^minimal
