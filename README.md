@@ -1,6 +1,6 @@
 # Deployment
 
-## [Setting Up a PXE SErver](deployment.md)
+## [Setting Up a PXE Server](./docs/pxe.md)
 
 
 
