@@ -2,7 +2,26 @@
 
 A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file servers are supported including HTTP, HTTPS, FTP, and SFTP.  This example will only cover HTTP using Apache2 as a file source.
 
-* DHCP Server
+## Requirements:
+* Clients
+    * Physical or Virtual
+    * 1+ CPU(s)
+    * 2gb+ RAM
+    * 30GB+ Storage
+    * PXE Enabled
+* Servers 
+    * 1 - 3 Servers for each role: DHCP, TFTP, and File 
+
+        |Package|Purpose|Config File|   
+        |:-|:-|:-|
+        |dhcpd|DHCP Server|/etc/dhcp/dhcpd.conf|
+        |tftp-server|TFTP Server|/etc/xinetd.d/tftp|
+        |xinetd|TFTP Server|/etc/xinetd.conf|
+        |httpd|Web Server|/etc/httpd/conf/httpd.conf|  
+
+---
+## Setup:
+* ### DHCP Server
     * Install
         ```
         yum install -y dhcp
@@ -54,7 +73,7 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
         systemctl start dhcpd
         ```
 
-* TFTP Server
+* ### TFTP Server
     * Install
         ```
         yum install -y xinetd tftp-server syslinux
@@ -64,21 +83,9 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
         ```
     * Configure
         > /etc/xinetd.d/tftp
-        ```
-        service tftp
-        {
-            socket_type         = dgram
-            protocol            = udp
-            wait                = yes
-            user                = root
-            server              = /usr/sbin/in.ftpd
-            server_args         = -c -s /var/lib/tftpboot
-            disable             = no
-            per_source          = 11
-            cps                 = 100 2
-            flags               = IPv4
-        }
-        ```
+
+        [Example](./etc/xinetd.d/tftp)
+
     * Enable
         ```
         systemctl enable xinetd
@@ -109,41 +116,10 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
         ```
         * edit default
             > /var/lib/tftpboot/pxelinux.cfg/default
-            ```
-            default menu.c32
-            prompt 0
-            timeout 30
-            ONTIMEOUT install
+           
+           [Example](./var/lib/tftpboot/pxelinux.cfg/default)
 
-            menu title My Boot Menu
-
-            label install
-                menu label Install CentOS 7 x86_64
-
-                kernel centos/7/x86_64/vmlinuz
-                append initrd=centos/7/x86_64/initrd.img showopts inst.repo=http://<web server ip>/centos/7/x86_64/os method=http://<web server ip>/repo/centos/7/os/x86_64/ rw ipv6.disable=1 ks=http://<web server ip>/centos/7/ks/<kickstart file>.ks ip=dhcp net.ifnames=0 biosdevname=0
-
-            label local
-                menu label Boot Local
-                localboot 0x80
-            ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* Web Server
+* ### Web Server
     * Install
         ```
         yum install -y httpd
@@ -189,7 +165,7 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
         chmod 755 /var/www/html/centos/7/ks/<kickstart>.ks
         ```
 
-* Cleanup
+* ### Cleanup
     * Unmount CentOS ISO
         ```
         umount /mnt
@@ -202,11 +178,3 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
         ```
         yum clean all
         ```
-
-
-* PXE Clients
-    * Requirements
-        * 1 CPU
-        * 2 GB RAM
-        * 30 GB Disk Space
-        * 1 NIC with PXE enabled

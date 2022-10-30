@@ -1,0 +1,15 @@
+default menu.c32
+prompt 0
+timeout 30
+ONTIMEOUT install
+
+menu title Install menu
+
+label install 
+    menu label Install Centos 7 x86_64
+    kernel centos/7/x86_64/vmlinuz
+    append initrd=centos/7/x86_64/initrd.img showopts inst.repo=https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/minimal.ks ip=dhcp net.ifnames=0 biosname=0
+
+label local
+    menu label Boot local
+    localboot 0x80
