@@ -3,13 +3,13 @@
 auth --enableshadow --passalgo=sha512
 
 # Use Network installation
-url --url=https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/minimal.ks
+url --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
 
 # Use text install
 text
 
 # Reboot after install
-Reboot
+reboot
 
 # YUM Repisitories
 #repo --name="Centos-7 - Base" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
