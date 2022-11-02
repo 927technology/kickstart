@@ -3,7 +3,8 @@
 auth --enableshadow --passalgo=sha512
 
 # Use Network installation
-url --url=https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/minimal.ks
+url --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
+
 
 # Use text install
 text
@@ -36,7 +37,7 @@ rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4
 services --disabled="chronyd"
 
 # System timezone
-timezone America/Chicago --isUtc --nontp
+timezone Etc/UTC --isUtc --nontp
 
 # System bootloader configuration
 bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
@@ -52,7 +53,7 @@ volgroup system --pesize=4096 pv.336
 logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
 logvol / --fstype="xfs" --size=12288 --name=root --vgname=system
 logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
-logvol /var/log --fstype="xfs" --size=4066 --name=var_log --vgname=system
+logvol /var/log --fstype="xfs" --size=4096 --name=var_log --vgname=system
 logvol swap --fstype="swap" --size=2048 --name=swap --vgname=system
 logvol /tmp --fstype="xfs" --size=1024 --name=tmp --vgname=system
 logvol /var/log/audit --fstype="xfs" --size=4096 --name=var_log_audit --vgname=system
