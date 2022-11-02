@@ -8,8 +8,6 @@ url --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
 
 # Use text install
 text
-
-# Reboot after install
 reboot
 
 # YUM Repisitories
@@ -27,7 +25,7 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
+network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
 network  --hostname=host.domain.tld
 
 # Root password
