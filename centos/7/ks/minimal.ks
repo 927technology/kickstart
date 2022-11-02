@@ -47,7 +47,7 @@ ignoredisk --only-use=sda
 clearpart --all --initlabel
 
 # Disk partitioning information
-part vp.336 --fstype="lvmpv" --ondisk=sda --size=28600
+part pv.336 --fstype="lvmpv" --ondisk=sda --size=28600
 part /boot --fstype="xfs" --ondisk=sda --size=1024
 volgroup system --pesize=4096 pv.336
 logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
