@@ -25,7 +25,7 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
+network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
 network  --hostname=host.domain.tld
 
 # Root password
