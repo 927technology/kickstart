@@ -41,7 +41,7 @@ bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=sda
 
 # Partition clearing information
 ignoredisk --only-use=sda
-clearpart --all --initlabel
+clearpart --all --initlabel --drives=sda
 
 # Disk partitioning information
 part pv.336 --fstype="lvmpv" --ondisk=sda --size=28600
