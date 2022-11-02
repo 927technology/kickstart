@@ -3,8 +3,7 @@
 auth --enableshadow --passalgo=sha512
 
 # Use Network installation
-url --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
-
+url --mirrorlist=http://mirror.ash.fastserv.com/centos/7.9.2009/isos/x86_64
 
 # Use text install
 text
