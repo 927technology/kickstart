@@ -3,8 +3,7 @@
 auth --enableshadow --passalgo=sha512
 
 # Use Network installation
-#url --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
-url --url=http://mirror.centos.org/centos-7/7.9.2009/os/x86_64
+url --url=https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/minimal.ks
 
 # Use text install
 text
@@ -13,7 +12,7 @@ text
 reboot
 
 # YUM Repisitories
-#repo --name="Centos-7 - Base" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
+repo --name="Centos-7 - Base" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
 repo --name="Centos-7 - Updates" --mirrorlist=http:/mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates
 repo --name="Extra Packages for Enterprise Linux 7" --mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=x86_64
 
@@ -48,7 +47,7 @@ clearpart --all --initlabel
 
 # Disk partitioning information
 part vp.336 --fstype="lvmpv" --ondisk=sda --size=28600
-part /boot --fstype="xfs" --ondisk-sda --size=1024
+part /boot --fstype="xfs" --ondisk=sda --size=1024
 volgroup system --pesize=4096 pv.336
 logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
 logvol / --fstype="xfs" --size=12288 --name=root --vgname=system
