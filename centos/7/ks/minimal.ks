@@ -9,8 +9,8 @@ auth --enableshadow --passalgo=sha512
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/install/type/text.ks
 
 # YUM Repisitories
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/repo/centos/x86_64/base.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/repo/centos/x86_64/epel.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/repo/x86_64/base.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/repo/x86_64/epel.ks
 
 # Disable the Setup Agent on first boot
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/firstboot/disable.ks
