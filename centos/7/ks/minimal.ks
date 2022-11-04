@@ -19,7 +19,7 @@ auth --enableshadow --passalgo=sha512
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/keyboard/us.ks
 
 # System language
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/language/utf8.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/language/us/utf8.ks
 
 # Network information
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/network/dhcp/no-ipv6.ks
@@ -36,11 +36,11 @@ network  --hostname=host.domain.tld
 
 
 # Partition clearing information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/partition-clear-sda.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/partition/clear/sda.ks
 
 
 # Disk partitioning information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/partition-stig.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/partition/stig.ks
 
 #packages
 %packages
