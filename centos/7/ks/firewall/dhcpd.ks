@@ -1,1 +1,2 @@
-firewall --enabled --service=dhcp,dhcpv6
+firewall --enabled --service=dhcp
+firewall --enabled --service=dhcpv6

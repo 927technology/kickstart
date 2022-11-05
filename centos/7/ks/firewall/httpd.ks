@@ -1,1 +1,2 @@
-firewall --enabled --service=http,https
+firewall --enabled --service=http
+firewall --enabled --service=https
