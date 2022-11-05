@@ -30,13 +30,10 @@ network  --hostname=deployment.domain.tld
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/user/root.ks
 
 # Services
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/dhcpd.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/httpd.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/tftp.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/deployment.ks
 
 # Timezone
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/ntp/utc.ks
-
 
 # Partition 
 ## Clear
