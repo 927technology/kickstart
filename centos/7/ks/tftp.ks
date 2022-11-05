@@ -5,7 +5,7 @@ auth --enableshadow --passalgo=sha512
 # Network
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/install/source/x86_64/cloud.ks
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/network/dhcp/no-ipv6.ks
-network  --hostname=dhcp.domain.tld
+network  --hostname=tftp.domain.tld
 
 # Firewall
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/firewall/tftp.ks
