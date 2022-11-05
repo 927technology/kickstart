@@ -30,7 +30,7 @@ network  --hostname=dhcp.domain.tld
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/user/root.ks
 
 # Services
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/minimal.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/services/dhcpd.ks
 
 # Timezone
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/ntp/utc.ks
@@ -62,5 +62,8 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 %end
 
 %post --log=/root/post.log
+# Output Post to Terminal
+exec < /dev/tty4 > /dev/tty4
+
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/dhcpd.ks
 %end
