@@ -67,7 +67,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 exec < /dev/tty4 > /dev/tty4
 chvt 4
 
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/dhcpd.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/httpd.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/tftp.ks
+curl -s https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/dhcpd.ks | bash
+curl -s https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/httpd.ks | bash
+curl -s https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/tftp.ks  | bash
 %end
