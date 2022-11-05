@@ -32,7 +32,7 @@ A PXE deployment server requires DHCP, TFTP, and a File Server.  Multiple file s
     * Configure
         > /etc/dhcp/dhcpd.conf 
         
-        [Example](/etc/dhcp/dhcpd.conf)
+        [Example](/etc/dhcp/dhcpd.example.conf)
         ```
         #add the following to your subnet or global configurations as needed
 
