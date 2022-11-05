@@ -8,7 +8,7 @@ auth --enableshadow --passalgo=sha512
 network  --hostname=dhcp.domain.tld
 
 # Firewall
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/firewall/tfpt.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/firewall/tftp.ks
 
 # Text Install
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/install/type/text.ks
