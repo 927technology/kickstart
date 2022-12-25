@@ -2,8 +2,12 @@
 # System authorization information
 auth --enableshadow --passalgo=sha512
 
-# Use Network installation
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/install/source/x86_64/cloud.ks
+# Repisitories
+url --mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
+url --mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates
+
+# Network
+%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/network/dhcp/no-ipv6.ks
 
 # Use install type
 %include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/install/type/text.ks
