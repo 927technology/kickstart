@@ -4,8 +4,8 @@ service tftp
     protocol            = udp
     wait                = yes
     user                = root
-    server              = /usr/sbin/in.ftpd
-    server_args         = -c -s /var/lib/tftpboot
+    server              = /usr/sbin/in.tftpd
+    server_args         = -s /var/lib/tftpboot
     disable             = no
     per_source          = 11
     cps                 = 100 2
