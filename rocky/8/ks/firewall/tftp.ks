@@ -1,0 +1,1 @@
+firewall --enabled --service=tftp
