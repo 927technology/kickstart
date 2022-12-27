@@ -1,4 +1,4 @@
-#version=DEVEL
+#version=RHEL8
 # System authorization information
 auth --enableshadow --passalgo=sha512
 

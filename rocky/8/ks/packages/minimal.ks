@@ -1,4 +1,3 @@
 #packages
-@^minimal
-@core
+@^minimal-environment
 kexec-tools
