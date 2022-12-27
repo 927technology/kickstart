@@ -44,7 +44,7 @@ network  --hostname=host.domain.tld
 
 
 # Disk partitioning information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/auto.ks
 
 #packages
 %packages
