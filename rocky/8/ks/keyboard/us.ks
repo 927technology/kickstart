@@ -1,1 +1,1 @@
-keyboard --vckeymap=us --xlayouts='us'
+keyboard --xlayouts='us'

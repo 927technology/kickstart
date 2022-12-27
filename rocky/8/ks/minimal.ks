@@ -1,12 +1,12 @@
-#version=DEVEL
+#version=RHEL8
 # System authorization information
-auth --enableshadow --passalgo=sha512
+#auth --enableshadow --passalgo=sha512
 
 # Install Source
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/source/x86_64/cloud.ks
 
 # Network
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
 network  --hostname=minimal.domain.tld
 
 # Use install type
@@ -14,7 +14,7 @@ network  --hostname=minimal.domain.tld
 
 # YUM Repisitories
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/epel.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/epel.ks
 
 # Disable the Setup Agent on first boot
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/firstboot/disable.ks
@@ -23,17 +23,17 @@ network  --hostname=minimal.domain.tld
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/keyboard/us.ks
 
 # System language
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
 
 # Network information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
 network  --hostname=host.domain.tld
 
 # Root password
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/user/root.ks
 
 # System services
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/services/minimal.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/services/minimal.ks
 
 # System timezone
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/ntp/utc.ks
