@@ -1,8 +1,20 @@
 #version=RHEL8
-text
+#text
 
 # Install Source
-url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/source/x86_64/cloud.ks
+
+# Network
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
+network  --hostname=minimal.domain.tld
+
+# Use install type
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/type/text.ks
+
+
+# YUM Repisitories
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
+
 
 %packages
 @^minimal-environment
@@ -11,7 +23,7 @@ url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=Base
 lang en_US.UTF-8
 
 # YUM Repisitories
-repo --name=base --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
+# repo --name=base --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
 
 
 # Disable the Setup Agent on first boot
@@ -23,7 +35,7 @@ keyboard --xlayouts='us'
 # System language
 
 # Network information
-network  --hostname=host.domain.tld
+#network  --hostname=host.domain.tld
 
 # Root password
 rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
