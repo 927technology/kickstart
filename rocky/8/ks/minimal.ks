@@ -11,7 +11,7 @@ url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=Base
 lang en_US.UTF-8
 
 # YUM Repisitories
-repo --name=base --mirrorlist=https://mirrors.rockylinux.org.mirrorlistarch=x86_64&repo=BaseOS-8
+repo --name=base --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
 
 
 # Disable the Setup Agent on first boot
