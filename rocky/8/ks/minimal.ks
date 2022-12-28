@@ -3,7 +3,6 @@
 
 # Install Source
 url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
-#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/source/x86_64/cloud.ks
 
 # Network
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
