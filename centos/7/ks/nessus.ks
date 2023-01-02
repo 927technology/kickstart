@@ -65,4 +65,6 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 # Output Post to Terminal
 exec < /dev/tty4 > /dev/tty4
 
+curl https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/post/nessus.sh | bash
+
 %end
