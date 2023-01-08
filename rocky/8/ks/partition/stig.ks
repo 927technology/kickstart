@@ -1,6 +1,6 @@
 # Disk partitioning information
 #part pv.336 --fstype="lvmpv" --ondisk=sda --size=28600
-part pv.936 --fstype="lvmpv" --ondisk=sda --size=28600
+part pv.932 --fstype="lvmpv" --ondisk=sda --size=28600
 part /boot --fstype="xfs" --ondisk=sda --size=1024
 #volgroup system --pesize=4096 pv.336
 volgroup system --pesize=4096 pv.932
