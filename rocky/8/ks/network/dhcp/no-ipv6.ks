@@ -1,1 +1,1 @@
-network  --bootproto=dhcp --device=eth0 --noipv6 --activate
+network  --bootproto=dhcp --device=enp0s3 --noipv6 --activate
