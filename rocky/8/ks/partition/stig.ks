@@ -1,3 +1,8 @@
+# Partition clearing information
+clearpart --all --initlabel --drives=sda
+ignoredisk --only-use=sda
+clearpart --none --initlabel
+
 # Disk partitioning information
 part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
 part /boot --fstype="xfs" --ondisk=sda --size=1024

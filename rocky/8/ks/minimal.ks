@@ -61,7 +61,7 @@ timezone Etc/UTC --isUtc --nontp
 #logvol /var/log/audit --fstype="xfs" --size=2048 --name=var_log_audit --vgname=system
 #logvol swap --fstype="swap" --size=1024 --name=swap --vgname=system
 
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
 
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
 
