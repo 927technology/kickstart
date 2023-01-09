@@ -1,6 +1,3 @@
-#version=RHEL8
-#text
-
 # Install Source
 url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
 
@@ -17,37 +14,38 @@ network  --hostname=minimal.domain.tld
 
 
 %packages
-@^minimal-environment
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/packages/minimal.ks
 %end
 
-lang en_US.UTF-8
-
 # YUM Repisitories
-# repo --name=base --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
-
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
 
 # Disable the Setup Agent on first boot
-firstboot --disable
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/firstboot/disable.ks
 
 # Keyboard layouts
-keyboard --xlayouts='us'
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/keyboard/us.ks
 
 # System language
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/utf8.ks
 
 # Network information
-#network  --hostname=host.domain.tld
+#network  --hostname=minimal.domain.tld
 
 # Root password
-rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/user/root.ks
 
 # System services
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/services/minimal.ks
 
 # System timezone
 timezone Etc/UTC --isUtc --nontp
 
 # Partition clearing information
-ignoredisk --only-use=sda
-clearpart --all --initlabel --drives=sda
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
+
+
 
 %addon com_redhat_kdump --enable --reserve-mb='auto'
 
