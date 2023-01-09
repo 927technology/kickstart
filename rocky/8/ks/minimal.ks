@@ -8,11 +8,6 @@ network  --hostname=minimal.domain.tld
 # Use install type
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/type/text.ks
 
-
-# YUM Repisitories
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
-
-
 %packages
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/packages/minimal.ks
 %end
@@ -45,10 +40,7 @@ timezone Etc/UTC --isUtc --nontp
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
 
-
-
 %addon com_redhat_kdump --enable --reserve-mb='auto'
-
 %end
 
 %anaconda
