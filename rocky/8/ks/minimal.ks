@@ -6,10 +6,19 @@ url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=Base
 network  --hostname=minimal.domain.tld
 
 # Use install type
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/type/text.ks
+text
+reboot
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/install/type/text.ks
+
+
+# YUM Repisitories
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
+
 
 %packages
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/packages/minimal.ks
+@^server-product-environment
+kexec-tools
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/packages/minimal.ks
 %end
 
 # YUM Repisitories
@@ -19,9 +28,11 @@ network  --hostname=minimal.domain.tld
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/firstboot/disable.ks
 
 # Keyboard layouts
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/keyboard/us.ks
+keyboard --xlayouts='us'
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/keyboard/us.ks
 
 # System language
+lang en_US.UTF-8#
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
 
 # Network information
@@ -37,10 +48,27 @@ network  --hostname=minimal.domain.tld
 timezone Etc/UTC --isUtc --nontp
 
 # Partition clearing information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
+clearpart --all --initlabel --drives=sda
+ignoredisk --only-use=sda
+#clearpart --none --initlabel
+
+part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
+part /boot --fstype="xfs" --ondisk=sda --size=1024
+volgroup system --pesize=4096 pv.932
+logvol / --fstype="xfs" --size=8192 --name=root --vgname=system
+logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
+logvol /tmp --fstype="xfs" --size=512 --name=tmp --vgname=system
+logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
+logvol /var/log --fstype="xfs" --size=2048 --name=var_log --vgname=system
+logvol /var/log/audit --fstype="xfs" --size=2048 --name=var_log_audit --vgname=system
+logvol swap --fstype="swap" --size=1024 --name=swap --vgname=system
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
+
+
 
 %addon com_redhat_kdump --enable --reserve-mb='auto'
+
 %end
 
 %anaconda
