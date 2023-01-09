@@ -49,9 +49,9 @@ lang en_US.UTF-8#
 timezone Etc/UTC --isUtc --nontp
 
 # Partition clearing information
-#clearpart --all --initlabel --drives=sda
+clearpart --all --initlabel --drives=sda
 ignoredisk --only-use=sda
-clearpart --none --initlabel
+#clearpart --none --initlabel
 
 part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
 part /boot --fstype="xfs" --ondisk=sda --size=1024
