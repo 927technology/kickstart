@@ -27,7 +27,7 @@ network  --hostname=minimal.domain.tld
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/keyboard/us.ks
 
 # System language
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/utf8.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
 
 # Network information
 #network  --hostname=minimal.domain.tld
