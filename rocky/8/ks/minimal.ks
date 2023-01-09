@@ -2,7 +2,8 @@
 url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
 
 # Network
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
+network --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
 network  --hostname=minimal.domain.tld
 
 # Use install type
@@ -12,7 +13,7 @@ reboot
 
 
 # YUM Repisitories
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
 
 
 %packages
@@ -25,7 +26,8 @@ kexec-tools
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/repo/x86_64/base.ks
 
 # Disable the Setup Agent on first boot
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/firstboot/disable.ks
+firstboot --disable
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/firstboot/disable.ks
 
 # Keyboard layouts
 keyboard --xlayouts='us'
@@ -33,7 +35,7 @@ keyboard --xlayouts='us'
 
 # System language
 lang en_US.UTF-8#
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
+#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
 
 # Network information
 #network  --hostname=minimal.domain.tld
@@ -42,15 +44,14 @@ lang en_US.UTF-8#
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/user/root.ks
 
 # System services
-%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/services/minimal.ks
 
 # System timezone
 timezone Etc/UTC --isUtc --nontp
 
 # Partition clearing information
-clearpart --all --initlabel --drives=sda
+#clearpart --all --initlabel --drives=sda
 ignoredisk --only-use=sda
-#clearpart --none --initlabel
+clearpart --none --initlabel
 
 part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
 part /boot --fstype="xfs" --ondisk=sda --size=1024
