@@ -2,8 +2,8 @@
 url --mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=x86_64&repo=BaseOS-8
 
 # Network
-network --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
-#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
+#network --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/network/dhcp/no-ipv6.ks
 network  --hostname=minimal.domain.tld
 
 # Use install type
@@ -37,9 +37,6 @@ keyboard --xlayouts='us'
 lang en_US.UTF-8#
 #%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/language/us/utf8.ks
 
-# Network information
-#network  --hostname=minimal.domain.tld
-
 # Root password
 %include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/user/root.ks
 
@@ -49,22 +46,22 @@ lang en_US.UTF-8#
 timezone Etc/UTC --isUtc --nontp
 
 # Partition clearing information
-clearpart --all --initlabel --drives=sda
-ignoredisk --only-use=sda
+#clearpart --all --initlabel --drives=sda
+#ignoredisk --only-use=sda
 #clearpart --none --initlabel
 
-part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
-part /boot --fstype="xfs" --ondisk=sda --size=1024
-volgroup system --pesize=4096 pv.932
-logvol / --fstype="xfs" --size=8192 --name=root --vgname=system
-logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
-logvol /tmp --fstype="xfs" --size=512 --name=tmp --vgname=system
-logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
-logvol /var/log --fstype="xfs" --size=2048 --name=var_log --vgname=system
-logvol /var/log/audit --fstype="xfs" --size=2048 --name=var_log_audit --vgname=system
-logvol swap --fstype="swap" --size=1024 --name=swap --vgname=system
-#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
-#%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
+#part pv.932 --fstype="lvmpv" --ondisk=sda --size=18952
+#part /boot --fstype="xfs" --ondisk=sda --size=1024
+#volgroup system --pesize=4096 pv.932
+#logvol / --fstype="xfs" --size=8192 --name=root --vgname=system
+#logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
+#logvol /tmp --fstype="xfs" --size=512 --name=tmp --vgname=system
+#logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
+#logvol /var/log --fstype="xfs" --size=2048 --name=var_log --vgname=system
+#logvol /var/log/audit --fstype="xfs" --size=2048 --name=var_log_audit --vgname=system
+#logvol swap --fstype="swap" --size=1024 --name=swap --vgname=system
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/clear/sda.ks
+%include https://raw.githubusercontent.com/927technology/kickstart/main/rocky/8/ks/partition/stig.ks
 
 
 
