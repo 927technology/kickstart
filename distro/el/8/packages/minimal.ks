@@ -1,3 +1,3 @@
 #packages
-@^minimal-environment
+@^server-product-environment
 kexec-tools
