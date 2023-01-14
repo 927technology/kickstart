@@ -1,1 +1,0 @@
-services --disabled="chronyd"
