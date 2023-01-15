@@ -81,7 +81,7 @@ ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.k
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
 
 #services
-${cmd_curl} ${url}/distro/${ID}/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
+${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote ${ID} ${major_version} services into /tmp/services.ks || ${cmd_echo} faild to write ${ID} ${major_version} into /tmp/services.ks
 
 ${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1>> /tmp/services.ks 2>/dev/null
