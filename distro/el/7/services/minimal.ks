@@ -1,1 +1,2 @@
-# there are no required services
+# el 7 services
+services --disabled="chronyd"

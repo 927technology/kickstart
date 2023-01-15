@@ -1,1 +1,1 @@
-services --disabled="chronyd"
+# el 8 services
