@@ -11,6 +11,12 @@ cmd_lsblk=/bin/lsblk
 cmd_sed=/bin/sed
 cmd_uname=/bin/uname
 
+#bools
+true=1
+false=0
+exitok=0
+exitcrit=1
+
 #variables
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^ID=`
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^VERSION_ID=`
@@ -43,22 +49,33 @@ case ${VERSION_ID} in
 esac
 
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks 1> /tmp/cloud.ks 2>/dev/null
-${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
-${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/cloud.ks || ${cmd_echo} faild to write /tmp/cloud.ks
 
+${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/base.ks || ${cmd_echo} faild to write /tmp/base.ks
+
+${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/repo.ks || ${cmd_echo} faild to write /tmp/repo.ks
 
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks || ${cmd_echo} faild to write /tmp/partition.ks
 
 case ${block_device_unit} in
     g)
         if [ ${block_device_size} -ge 32 ]; then
             ${cmd_curl} "${url}/distro/el/${major_version}/partition/32g.ks" 1>> /tmp/partition.ks 2>/dev/null
+            [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} faild to write /tmp/partition.ks as 32g
+
         else
             ${cmd_curl} "${url}/distro/el/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+            [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} faild to write /tmp/partition.ks as auto
+
         fi
     ;;
     *) 
         ${cmd_curl} "${url}/distro/el/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+        [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} faild to write /tmp/partition.ks as auto
+
     ;;
 esac
 
