@@ -10,6 +10,7 @@ cmd_head=/bin/head
 cmd_lsblk=/bin/lsblk
 cmd_sed=/bin/sed
 cmd_uname=/bin/uname
+cmd_wipefs=/sbin/wipefs
 
 #bools
 true=1
@@ -79,6 +80,9 @@ ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/r
 #partition
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
+
+#partition - sometimes if there is a partiton already configured el will fail
+${cmd_wipefs} -f -a /dev/${block_device}
 
 #services
 ${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
