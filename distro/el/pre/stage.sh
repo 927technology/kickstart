@@ -58,10 +58,10 @@ ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/r
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/repo.ks || ${cmd_echo} faild to write /tmp/repo.ks
 
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks || ${cmd_echo} faild to write /tmp/partition.ks
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
 
 case ${block_device_unit} in
-    g)
+    G)
         if [ ${block_device_size} -ge 32 ]; then
             ${cmd_curl} "${url}/distro/el/${major_version}/partition/32g.ks" 1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} faild to write /tmp/partition.ks as 32g
