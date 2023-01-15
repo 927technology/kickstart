@@ -52,10 +52,22 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 %end
 
 %pre --log=/root/pre.log
+# output pre to Terminal
+exec < /dev/tty6 > /dev/tty6
+#enter pre scripts here
+
 curl https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/stage.sh | /bin/bash
+
+# return to locally scheduled installer
+chvt 1
 %end
 
 %post --log=/root/post.log
 # Output Post to Terminal
-exec < /dev/tty4 > /dev/tty4
+exec < /dev/tty6 > /dev/tty6
+chvt 6
+#enter post scripts here
+
+# return to locally scheduled installer
+chvt 1
 %end
