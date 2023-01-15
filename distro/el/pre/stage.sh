@@ -4,12 +4,21 @@
 cmd_awk=/bin/awk
 cmd_cat=/bin/cat
 cmd_curl=/bin/curl
+cmd_cut=/bin/cut
+cmd_dmsetup=/sbin/dmsetup
 cmd_echo=/bin/echo
 cmd_grep=/bin/grep
 cmd_head=/bin/head
+cmd_ls=/bin/ls
 cmd_lsblk=/bin/lsblk
+cmd_mdadm=/sbin/mdadm
+cmd_mktemp=/bin/mktemp
+cmd_rm=/bin/rm
 cmd_sed=/bin/sed
+cmd_udevadm=/bin/udevadm
 cmd_uname=/bin/uname
+cmd_vgchange=/sbin/vgchange
+cmd_vgdisplay=/sbin/vgdisplay
 cmd_wipefs=/sbin/wipefs
 
 #bools
@@ -89,6 +98,31 @@ ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.k
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
 
 #partition - sometimes if there is a partiton already configured el will fail
+${cmd_udevadm} settle
+${cmd_dmsetup} remove_all
+
+# De-activate any exiting Volume Groups
+${cmd_vgchange} -an system
+${cmd_vgchange} -an os
+
+# Clear software raid devices if any
+raid_devices=`${cmd_mktemp} /tmp/mdstat.XXXXXXXXX`
+${cmd_cat} /proc/mdstat | ${cmd_grep} ^md | ${cmd_cut} -d : -f 1 > ${raid_devices}
+
+if [ -s ${raid_devices} ]; then
+    for raid_device in `${cmd_cat} ${raid_devices}`;do
+       ${cmd_wipefs} -f -a /dev/${raid_device}
+       ${cmd_mdadm} --stop -f /dev/${raid_device}
+       if [ ${?} != ${exitok} ]; then
+          ${cmd_udevadm} settle
+          ${cmd_dmsetup} remove_all
+          ${cmd_mdadm} --stop -f /dev/${raid_device}
+       fi
+   done
+fi
+
+${cmd_rm} -vf ${raid_devices}
+
 ${cmd_wipefs} -f -a /dev/${block_device}
 
 #services
