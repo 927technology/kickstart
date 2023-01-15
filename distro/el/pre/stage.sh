@@ -55,10 +55,10 @@ ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/cloud.ks || ${cmd_echo} faild to write /tmp/cloud.ks
 
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/base.ks || ${cmd_echo} faild to write /tmp/base.ks
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote base into  /tmp/repo.ks || ${cmd_echo} failed to write base into /tmp/repo.ks
 
-${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/repo.ks || ${cmd_echo} faild to write /tmp/repo.ks
+#${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
+#[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote epel into /tmp/repo.ks || ${cmd_echo} faild to write epel into /tmp/repo.ks
 
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
