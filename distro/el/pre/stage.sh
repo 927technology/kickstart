@@ -48,6 +48,10 @@ case ${VERSION_ID} in
     9 | 9.*)    major_version=9     ;;
 esac
 
+#addon
+${cmd_curl} ${url}/distro/el/${major_version}/addon.ks 1> /tmp/addon.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/addon.ks || ${cmd_echo} faild to write /tmp/addon.ks
+
 #authorization
 ${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} faild to write /tmp/authorization.ks
