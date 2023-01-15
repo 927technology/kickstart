@@ -25,10 +25,6 @@ network  --hostname=minimal.domain.tld
 # System language 
 %include https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/language/us/utf8.ks
 
-# Network information
-%include https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/network/dhcp/no-ipv6.ks
-network  --hostname=host.domain.tld
-
 # Root password
 %include https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/user/root.ks
 
