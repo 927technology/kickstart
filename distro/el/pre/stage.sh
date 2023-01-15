@@ -16,7 +16,7 @@ eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^VERSION_ID=`
 
 arch=`/bin/uname -p`
                                                                                                     #select the 1st block device only
-block_device=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_awk} '{print $1}' | ${cmd_head} -n 1`     
+block_device=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_head} -n 1 | ${cmd_awk} '{print $1}'`     
 block_device_size_raw=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_awk} '{print $4}' | ${cmd_head} -n 1`
 url=https://raw.githubusercontent.com/927technology/kickstart/main
 
@@ -24,13 +24,13 @@ url=https://raw.githubusercontent.com/927technology/kickstart/main
 #main
                                                                                                     #get size unit and size for 1st block device
 if [[ "${block_device_size_raw}" =~ "T"$ ]]; then
-    block_device_unit=t
+    block_device_unit=T
 elif [[ "${block_device_size_raw}" =~ "G"$ ]]; then
-    block_device_unit=g
+    block_device_unit=G
 elif [[ "${block_device_size_raw}" =~ "M"$ ]]; then
-    block_device_unit=m
+    block_device_unit=M
 elif [[ "${block_device_size_raw}" =~ "K"$ ]]; then
-    block_device_unit=k
+    block_device_unit=K
 fi
 
 block_device_size=`${cmd_echo} ${block_device_size_raw} | ${cmd_sed} 's/'${block_device_unit}'//g'`
