@@ -64,11 +64,15 @@ ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks
 ${cmd_curl} ${url}/distro/el/${major_version}/keyboard/us.ks 1> /tmp/keyboard.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/keyboard.ks || ${cmd_echo} faild to write /tmp/keyboard.ks
 
-#Base Repo
+#network
+${cmd_curl} ${url}/distro/el/${major_version}/network/dhcp/no-ipv6.ks 1> /tmp/network.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/network.ks || ${cmd_echo} faild to write /tmp/network.ks
+
+#Repo - Base
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote base into  /tmp/repo.ks || ${cmd_echo} failed to write base into /tmp/repo.ks
 
-#EPEL Repo
+#Repo - EPEL
 #${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
 #[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote epel into /tmp/repo.ks || ${cmd_echo} faild to write epel into /tmp/repo.ks
 
