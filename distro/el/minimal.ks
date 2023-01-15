@@ -55,8 +55,8 @@ pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
 pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 %end
 
-%pre --log=/root/post.log
-curl https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/stage.sh | bash
+%pre --log=/root/pre.log
+curl https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/stage.sh | /bin/bash 2>/dev/null
 %end
 
 %post --log=/root/post.log
