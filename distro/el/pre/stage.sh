@@ -42,6 +42,10 @@ case ${VERSION_ID} in
 esac
 
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks 1> /tmp/cloud.ks 2>/dev/null
+${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
+${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
+
+
 ${cmd_curl} ${url}/distro/el/${major_version}/partition/clear/${block_device}.ks 1> /tmp/partition.ks 2>/dev/null
 
 case ${block_device_unit} in
