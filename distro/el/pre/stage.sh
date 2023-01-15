@@ -48,20 +48,36 @@ case ${VERSION_ID} in
     9 | 9.*)    major_version=9     ;;
 esac
 
+#authorization
 ${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} faild to write /tmp/authorization.ks
 
+#source repo
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks 1> /tmp/cloud.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/cloud.ks || ${cmd_echo} faild to write /tmp/cloud.ks
 
+#keyboard
+${cmd_curl} ${url}/distro/el/${major_version}/keyboard/us.ks 1> /tmp/keyboard.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/keyboard.ks || ${cmd_echo} faild to write /tmp/keyboard.ks
+
+#Base Repo
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote base into  /tmp/repo.ks || ${cmd_echo} failed to write base into /tmp/repo.ks
 
+#EPEL Repo
 #${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
 #[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote epel into /tmp/repo.ks || ${cmd_echo} faild to write epel into /tmp/repo.ks
 
+#partition
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
+
+#services
+${cmd_curl} ${url}/distro/${ID}/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote ${ID} ${major_version} services into /tmp/services.ks || ${cmd_echo} faild to write ${ID} ${major_version} into /tmp/services.ks
+
+${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1>> /tmp/services.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote el ${major_version} services into /tmp/services.ks || ${cmd_echo} faild to write el ${major_version} into /tmp/services.ks
 
 case ${block_device_unit} in
     G)

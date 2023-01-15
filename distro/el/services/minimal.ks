@@ -1,1 +1,1 @@
-services --disabled="chronyd"
+# there are no required servcies

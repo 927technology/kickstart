@@ -1,1 +1,1 @@
-lang en_US.UTF-8s
+lang en_US.UTF-8
