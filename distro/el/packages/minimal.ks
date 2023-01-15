@@ -1,4 +1,1 @@
-#packages
-@^minimal
-@core
-kexec-tools
+# common packages

@@ -77,6 +77,13 @@ ${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/r
 #${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
 #[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote epel into /tmp/repo.ks || ${cmd_echo} faild to write epel into /tmp/repo.ks
 
+#packages
+${cmd_curl} "${url}/distro/el/${major_version}/packages/minimal.ks" 1> /tmp/packages.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} faild to write /tmp/packages.ks as clear
+
+${cmd_curl} "${url}/distro/el/packages/minimal.ks" 1>> /tmp/packages.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} faild to write /tmp/packages.ks as clear
+
 #partition
 ${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} faild to write /tmp/partition.ks as clear
