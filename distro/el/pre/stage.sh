@@ -48,6 +48,9 @@ case ${VERSION_ID} in
     9 | 9.*)    major_version=9     ;;
 esac
 
+${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} faild to write /tmp/authorization.ks
+
 ${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks 1> /tmp/cloud.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/cloud.ks || ${cmd_echo} faild to write /tmp/cloud.ks
 
