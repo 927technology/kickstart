@@ -61,3 +61,12 @@ case ${block_device_unit} in
         ${cmd_curl} "${url}/distro/el/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
     ;;
 esac
+
+${cmd_echo} ID: ${ID}
+${cmd_echo} Version ID: ${VERSION_ID}
+${cmd_echo} Major Version: ${major_version}
+${cmd_echo} Block Device: ${block_device}
+${cmd_echo} Block Device Size Raw: ${block_device_size_raw}
+${cmd_echo} Block Device Size: ${block_device_size}
+${cmd_echo} Block Device Unit: ${block_device_unit}
+${cmd_echo} URL: ${url}
