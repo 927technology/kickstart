@@ -1,3 +1,3 @@
 # Use install type
-text
+cmdline
 reboot --eject
