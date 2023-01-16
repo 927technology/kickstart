@@ -51,6 +51,7 @@ network  --hostname=minimal.domain.tld
 %pre --log=/root/pre.log
 # output pre to Terminal
 exec < /dev/tty6 > /dev/tty6
+chvt 6
 #enter pre scripts here
 
 curl https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/stage.sh | /bin/bash
