@@ -1,2 +1,2 @@
 # Use Network installation
-url --mirrorlist=http://mirrorlist.centos.org/?release=8&arch=x86_64&repo=os
+url --mirrorlist=http://mirror.centos.org/?release=$stream&arch=$basearch&repo=BaseOS&infra=$infra
