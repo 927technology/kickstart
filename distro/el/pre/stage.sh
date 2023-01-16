@@ -15,6 +15,7 @@ cmd_mdadm=/sbin/mdadm
 cmd_mktemp=/bin/mktemp
 cmd_rm=/bin/rm
 cmd_sed=/bin/sed
+cmd_touch=/bin/touch
 cmd_udevadm=/bin/udevadm
 cmd_uname=/bin/uname
 cmd_vgchange=/sbin/vgchange
@@ -67,6 +68,10 @@ case ${major_version} in
     7 | 8)
         ${cmd_curl} ${url}/distro/el/${major_version}/anaconda.ks 1> /tmp/anaconda.ks 2>/dev/null
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/anaconda.ks || ${cmd_echo} faild to write /tmp/anaconda.ks
+    ;;
+    *)
+        ${cmd_touch} /tmp/ananconda.ks
+        ${cmd_echo} wrote empty /tmp/ananconda.ks
     ;;
 esac
 
