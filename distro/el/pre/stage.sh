@@ -62,6 +62,14 @@ esac
 ${cmd_curl} ${url}/distro/el/${major_version}/addon.ks 1> /tmp/addon.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/addon.ks || ${cmd_echo} faild to write /tmp/addon.ks
 
+#anaconda
+case ${major_version} in
+    7 | 8)
+        ${cmd_curl} ${url}/distro/el/${major_version}/anaconda.ks 1> /tmp/anaconda.ks 2>/dev/null
+        [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/anaconda.ks || ${cmd_echo} faild to write /tmp/anaconda.ks
+    ;;
+esac
+
 #authorization
 ${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} faild to write /tmp/authorization.ks
