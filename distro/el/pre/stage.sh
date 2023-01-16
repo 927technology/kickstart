@@ -71,7 +71,7 @@ case ${major_version} in
     ;;
     *)
         ${cmd_touch} /tmp/ananconda.ks
-        ${cmd_echo} wrote empty /tmp/ananconda.ks
+        ${cmd_echo} wrote empty /tmp/anaconda.ks
     ;;
 esac
 
