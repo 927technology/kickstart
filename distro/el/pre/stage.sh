@@ -70,7 +70,7 @@ case ${major_version} in
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/anaconda.ks || ${cmd_echo} faild to write /tmp/anaconda.ks
     ;;
     *)
-        ${cmd_touch} /tmp/ananconda.ks
+        ${cmd_touch} /tmp/anaconda.ks
         ${cmd_echo} wrote empty /tmp/anaconda.ks
     ;;
 esac
