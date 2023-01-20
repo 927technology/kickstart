@@ -1,2 +1,2 @@
 # Use Network installation
-url --mirrorlist=http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os
+url --baseurl=https://https://raw.githubusercontent.com/927technology/kickstart/main/distro/ol/7/images/x86_64
