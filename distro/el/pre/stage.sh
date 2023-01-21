@@ -10,7 +10,7 @@ function file.isempty {
 
     [ ! -s ${lfile} ] && lexitstring=${true} || lexitstring=${false}
 
-    return ${lexitstring}
+    ${cmd_echo} ${lexitstring}
 } 
 #commands
 cmd_awk=/bin/awk
@@ -90,10 +90,6 @@ esac
 #authorization
 ${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} failed to write /tmp/authorization.ks
-
-#source repo
-${cmd_curl} ${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks 1> /tmp/cloud.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/cloud.ks || ${cmd_echo} failed to write /tmp/cloud.ks
 
 #keyboard
 ${cmd_curl} ${url}/distro/el/${major_version}/keyboard/us.ks 1> /tmp/keyboard.ks 2>/dev/null
@@ -178,10 +174,10 @@ esac
 
 #source
 ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/install/source/${arch}/cd.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` ] && ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cd.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
-[ ! `file.isempty /tmp/source.ks` ] && ${cmd_echo} wrote /tmp/source.ks || ${cmd_echo} failed to write /tmp/source.ks
+[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
+[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cd.ks" > /tmp/source.ks
+[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
+[ `file.isempty /tmp/source.ks` -eq ${false} ] && ${cmd_echo} wrote /tmp/source.ks || ${cmd_echo} failed to write /tmp/source.ks
 
 #output
 ${cmd_echo} ID: ${ID}
