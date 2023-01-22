@@ -1,7 +1,8 @@
 # Disk partitioning information
-part pv.336 --fstype="lvmpv" --ondisk=sda --size=28600
+#part pv.336 --fstype="lvmpv" --ondisk=sda --size=28600
+part pv.01 --fstype="lvmpv" --ondisk=sda --size=28600
 part /boot --fstype="xfs" --ondisk=sda --size=1024
-volgroup system --pesize=4096 pv.336
+volgroup system --pesize=4096 pv.01
 logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
 logvol / --fstype="xfs" --size=12288 --name=root --vgname=system
 logvol /var --fstype="xfs" --size=4096 --name=var --vgname=system
