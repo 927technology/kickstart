@@ -1,17 +1,5 @@
 #!/bin/bash
 
-#functions
-
-function file.isempty {
-    #accepts 1 argument, file to test.  returns boolean true if empty false if not empty
-
-    local lexitstring=${false}
-    local lfile=${1}
-
-    [ ! -s ${lfile} ] && lexitstring=${true} || lexitstring=${false}
-
-    ${cmd_echo} ${lexitstring}
-} 
 #commands
 cmd_awk=/bin/awk
 cmd_cat=/bin/cat
@@ -72,13 +60,13 @@ case ${VERSION_ID} in
 esac
 
 #addon
-${cmd_curl} ${url}/distro/el/${major_version}/addon.ks 1> /tmp/addon.ks 2>/dev/null
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/addon/config.ks 1> /tmp/addon.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/addon.ks || ${cmd_echo} failed to write /tmp/addon.ks
 
 #anaconda
 case ${major_version} in
     7 | 8)
-        ${cmd_curl} ${url}/distro/el/${major_version}/anaconda.ks 1> /tmp/anaconda.ks 2>/dev/null
+        ${cmd_curl} -so ${url}/distro/el/${major_version}/anaconda.ks 1> /tmp/anaconda.ks 2>/dev/null
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/anaconda.ks || ${cmd_echo} failed to write /tmp/anaconda.ks
     ;;
     *)
@@ -88,34 +76,42 @@ case ${major_version} in
 esac
 
 #authorization
-${cmd_curl} ${url}/distro/el/${major_version}/system/authorization.ks 1> /tmp/authorization.ks 2>/dev/null
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/authorization/config.ks 1> /tmp/authorization.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/authorization.ks || ${cmd_echo} failed to write /tmp/authorization.ks
 
+#firstboot
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/firstboot/config.ks 1> /tmp/firstboot.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/firstboot.ks || ${cmd_echo} failed to write /tmp/firstboot.ks
+
+#language
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/language/config.ks 1> /tmp/firstboot.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/language.ks || ${cmd_echo} failed to write /tmp/language.ks
+
 #keyboard
-${cmd_curl} ${url}/distro/el/${major_version}/keyboard/us.ks 1> /tmp/keyboard.ks 2>/dev/null
+${cmd_curl} -so ${url}/distro/${ID}/keyboard/us.ks 1> /tmp/keyboard.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/keyboard.ks || ${cmd_echo} failed to write /tmp/keyboard.ks
 
 #network
-${cmd_curl} ${url}/distro/el/${major_version}/network/dhcp/no-ipv6.ks 1> /tmp/network.ks 2>/dev/null
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/network/config.ks 1> /tmp/network.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/network.ks || ${cmd_echo} failed to write /tmp/network.ks
 
 #Repo - Base
-${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
+${cmd_curl} -so ${url}/distro/${ID}/${major_version}/repo/${arch}/base.ks 1>  /tmp/repo.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote base into  /tmp/repo.ks || ${cmd_echo} failed to write base into /tmp/repo.ks
 
 #Repo - EPEL
-#${cmd_curl} ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
+#${cmd_curl} -so ${url}/distro/${ID}/${major_version}/repo/${arch}/epel.ks 1>> /tmp/repo.ks 2>/dev/null
 #[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote epel into /tmp/repo.ks || ${cmd_echo} failed to write epel into /tmp/repo.ks
 
 #packages
-${cmd_curl} "${url}/distro/el/${major_version}/packages/minimal.ks" 1> /tmp/packages.ks 2>/dev/null
+${cmd_curl} -so "${url}/distro/${ID}/${major_version}/packages/config.ks" 1> /tmp/packages.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
 
-${cmd_curl} "${url}/distro/el/packages/minimal.ks" 1>> /tmp/packages.ks 2>/dev/null
+${cmd_curl} -so "${url}/distro/${ID}/${major_version}packages/minimal.ks" 1>> /tmp/packages.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
 
 #partition
-${cmd_curl} "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
+${cmd_curl} -so "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} failed to write /tmp/partition.ks as clear
 
 #partition - sometimes if there is a partiton already configured el will fail
@@ -146,38 +142,60 @@ ${cmd_rm} -vf ${raid_devices}
 
 ${cmd_wipefs} -f -a /dev/${block_device}
 
-#services
-${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote ${ID} ${major_version} services into /tmp/services.ks || ${cmd_echo} failed to write ${ID} ${major_version} into /tmp/services.ks
-
-${cmd_curl} ${url}/distro/el/${major_version}/services/minimal.ks 1>> /tmp/services.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote el ${major_version} services into /tmp/services.ks || ${cmd_echo} failed to write el ${major_version} into /tmp/services.ks
-
+#partition - select partition scheme
 case ${block_device_unit} in
     G)
         if [ ${block_device_size} -ge 32 ]; then
-            ${cmd_curl} "${url}/distro/el/${major_version}/partition/32g.ks" 1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/partition/scheme/32g.ks" 1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} failed to write /tmp/partition.ks as 32g
 
         else
-            ${cmd_curl} "${url}/distro/el/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
         fi
     ;;
     *) 
-        ${cmd_curl} "${url}/distro/el/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+        ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/partition/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
     ;;
 esac
 
+
+
+
+
+
+
+#services
+${cmd_curl} -so ${url}/distro/el/${major_version}/services/minimal.ks 1> /tmp/services.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote ${ID} ${major_version} services into /tmp/services.ks || ${cmd_echo} failed to write ${ID} ${major_version} into /tmp/services.ks
+
+${cmd_curl} -so ${url}/distro/el/${major_version}/services/minimal.ks 1>> /tmp/services.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote el ${major_version} services into /tmp/services.ks || ${cmd_echo} failed to write el ${major_version} into /tmp/services.ks
+
+
+
 #source
 ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/install/source/${arch}/cd.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/${ID}/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cd.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` -eq ${true}  ] && ${cmd_curl} -so "${url}/distro/el/${major_version}/install/source/${arch}/cloud.ks" > /tmp/source.ks
-[ `file.isempty /tmp/source.ks` -eq ${false} ] && ${cmd_echo} wrote /tmp/source.ks || ${cmd_echo} failed to write /tmp/source.ks
+
+#timezone
+${cmd_curl} -so "${url}/distro/${ID}/timezone/config.ks" 1> /tmp/type.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/timezome.ks || ${cmd_echo} failed to write /tmp/timezone.ks
+
+#type
+${cmd_curl} -so "${url}/distro/el/install/type/text.ks" 1> /tmp/type.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/type.ks || ${cmd_echo} failed to write /tmp/type.ks
+
+#users
+${cmd_curl} -so "${url}/distro/${ID}/user/root.ks" 1> /tmp/user.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/user.ks -user root|| ${cmd_echo} failed to write /tmp/user.ks - user root
+
+${cmd_curl} -so "${url}/distro/${ID}/user/config.ks" 1>> /tmp/user.ks 2>/dev/null
+[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/user.ks || ${cmd_echo} failed to write /tmp/user.ks
+
+
 
 #output
 ${cmd_echo} ID: ${ID}

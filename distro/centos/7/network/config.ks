@@ -1,0 +1,1 @@
+../../../el/network/dhcp/no-ipv6/eth0.ks
