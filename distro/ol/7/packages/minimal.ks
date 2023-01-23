@@ -1,1 +1,0 @@
-../../../el/7/packages/minimal.ks
