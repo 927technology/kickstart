@@ -6,10 +6,10 @@ function config.get {
 
     local lsetting=${1}
 
-echo ${url}/distro/${ID}/${major_version}/${arch}${lsetting}/config.ks
+echo ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks
 
     #Query ID/Version/Arch
-    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}${lsetting}/config.ks > /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
     if [ ! `file.isempty ${lsetting}.ks` ]; then
         ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     else
