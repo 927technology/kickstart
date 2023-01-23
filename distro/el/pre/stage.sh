@@ -6,8 +6,6 @@ function config.get {
 
     local lsetting=${1}
 
-echo ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks
-ID=centos
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
@@ -51,6 +49,8 @@ ID=centos
             fi
         fi
     fi
+
+    ${cmd_echo}
 }
 function file.isempty {
     #accepts 1 arg file name.  returns boolean true if file is empty
