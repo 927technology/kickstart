@@ -58,7 +58,7 @@ function file.isempty {
     local lfile=${1}
     local lexitcode=${false}
 
-    [ -s ${lfile} ] && lexitcode=${true} || lexitcode=${false}
+    [ -s ${lfile} ] && lexitcode=${false} || lexitcode=${true}
 
     ${cmd_echo} ${lexitcode}
 }
