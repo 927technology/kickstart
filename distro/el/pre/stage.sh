@@ -7,7 +7,7 @@ function config.get {
     local lsetting=${1}
 
 echo ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks
-
+ID=centos
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
@@ -22,7 +22,6 @@ echo ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks
         else
             #Query ID
             ${cmd_echo} ${ID}/${lsetting}
-            ${cmd_echo} id/${lsetting}
             ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks > /tmp/${lsetting}.ks
             if [ ! `file.isempty ${lsetting}.ks` ]; then
                 ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
