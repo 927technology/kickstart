@@ -6,42 +6,40 @@ function config.get {
 
     local lsetting=${1}
 
-echo ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks
-ID=centos
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-    if [ ! `file.isempty ${lsetting}.ks` ]; then
+    if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
         ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     else
         #Query ID/Version
         ${cmd_echo} ${ID}/${major_version}/${lsetting}
         ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-        if [ ! `file.isempty ${lsetting}.ks` ]; then
+        if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
             ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
         else
             #Query ID
             ${cmd_echo} ${ID}/${lsetting}
             ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-            if [ ! `file.isempty ${lsetting}.ks` ]; then
+            if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
                 ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
             else
             #Query EL/Version/Arch
                 ${cmd_echo} el/${major_version}/${arch}/${lsetting}
                 ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                if [ ! `file.isempty ${lsetting}.ks` ]; then
+                if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
                     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
                 else
                     #Query EL/Version
                     ${cmd_echo} el/${major_version}/${lsetting}
                     ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                    if [ ! `file.isempty ${lsetting}.ks` ]; then
+                    if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
                         ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${major_version}
                     else
                         #Query EL
                         ${cmd_echo} el/${lsetting}
                         ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                        if [ ! `file.isempty ${lsetting}.ks` ]; then
+                        if [ `file.isempty /tmp/${lsetting}.ks -eq ${false}` ]; then
                             ${cmd_echo} writing /tmp/${lsetting}.ks from EL root
                         else
                             ${cmd_echo} failed writing /tmp/${lsetting}.ks
@@ -51,6 +49,8 @@ ID=centos
             fi
         fi
     fi
+
+    ${cmd_echo}
 }
 function file.isempty {
     #accepts 1 arg file name.  returns boolean true if file is empty
@@ -58,7 +58,7 @@ function file.isempty {
     local lfile=${1}
     local lexitcode=${false}
 
-    [ -s ${lfile} ] && lexitcode=${true} || lexitcode=${false}
+    [ -s ${lfile} ] && lexitcode=${false} || lexitcode=${true}
 
     ${cmd_echo} ${lexitcode}
 }
