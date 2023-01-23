@@ -1,1 +1,0 @@
-../../../el/firstboot/disable.ks

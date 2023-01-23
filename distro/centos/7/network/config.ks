@@ -1,1 +1,1 @@
-../../../el/network/dhcp/no-ipv6/eth0.ks
+network  --bootproto=dhcp --device=eth0 --noipv6 --activate
