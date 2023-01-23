@@ -8,32 +8,32 @@ function config.get {
 
     #Query ID/Version/Arch
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}${lsetting}/config.ks > /tmp/${lsetting}.ks
-    if [ ! `file.isempty ${lsetting}.ks`]; then
+    if [ ! `file.isempty ${lsetting}.ks` ]; then
         ${cmd_echo} writing /tmp/${setting}.ks from ${ID} ${major_version}
     else
         #Query ID/Version
         ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-        if [ ! `file.isempty ${lsetting}.ks`]; then
+        if [ ! `file.isempty ${lsetting}.ks` ]; then
             ${cmd_echo} writing /tmp/${setting}.ks from ${ID} ${major_version}
         else
             #Query ID
             ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-            if [ ! `file.isempty ${lsetting}.ks`]; then
+            if [ ! `file.isempty ${lsetting}.ks` ]; then
                 ${cmd_echo} writing /tmp/${setting}.ks from ${ID} root
             else
             #Query EL/Version/Arch
                 ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                if [ ! `file.isempty ${lsetting}.ks`]; then
+                if [ ! `file.isempty ${lsetting}.ks` ]; then
                     ${cmd_echo} writing /tmp/${setting}.ks from ${ID} ${major_version}
                 else
                     #Query EL/Version
                     ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                    if [ ! `file.isempty ${lsetting}.ks`]; then
+                    if [ ! `file.isempty ${lsetting}.ks` ]; then
                         ${cmd_echo} writing /tmp/${setting}.ks from EL ${major_version}
                     else
                         #Query EL
                         ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks > /tmp/${lsetting}.ks
-                        if [ ! `file.isempty ${lsetting}.ks`]; then
+                        if [ ! `file.isempty ${lsetting}.ks` ]; then
                             ${cmd_echo} writing /tmp/${setting}.ks from EL root
                         else
                             ${cmd_echo} failed writing /tmp/${setting}.ks
