@@ -10,32 +10,37 @@ function config.get {
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
+    ${cmd_echo}
  
     #Query ID/Version
     ${cmd_echo} ${ID}/${major_version}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
+    ${cmd_echo}
 
     #Query ID
     ${cmd_echo} ${ID}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
+    ${cmd_echo}
 
     #Query EL/Version/Arch
     ${cmd_echo} el/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
+    ${cmd_echo}
 
     #Query EL/Version
     ${cmd_echo} el/${major_version}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${major_version}
+    ${cmd_echo}
 
     #Query EL
     ${cmd_echo} el/${lsetting}
     ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from EL root
-    ${cmd_echo} failed writing /tmp/${lsetting}.ks
+    ${cmd_echo}
 
 }
 function file.isempty {
