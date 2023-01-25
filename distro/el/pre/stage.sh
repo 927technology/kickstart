@@ -60,7 +60,7 @@ function file.isempty {
 }
 
 #variables
-url=${1}                                                                                            #url from kickstart                                                                                                   
+#url=${1}                                                                                            #url from kickstart                                                                                                   
 source /tmp/variables.v                                                                             #source varables provided by kickstart
                                                                                                     #source bools from git
 /bin/curl ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                      > /tmp/bool.v
