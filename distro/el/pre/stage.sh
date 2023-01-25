@@ -63,10 +63,10 @@ function file.isempty {
 #url=${1}                                                                                            #url from kickstart                                                                                                   
 source /tmp/variables.v                                                                             #source varables provided by kickstart
                                                                                                     #source bools from git
-/bin/curl ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                      > /tmp/bool.v
+/bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                      > /tmp/bool.v
 source /tmp/bool.v
                                                                                                     #source dracut commands from git
-/bin/curl ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                                > /tmp/cmd_dracut.v
+/bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                                > /tmp/cmd_dracut.v
 source /tmp/cmd_dracut.v
 
                                                                                                     #get ID and Version form initrd
@@ -123,11 +123,7 @@ config.get network
 config.get repo
 
 #packages
-${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/packages/config.ks"                           1> /tmp/packages.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
-
-${cmd_curl} -sf "${url}/distro/el/${major_version}packages/minimal.ks"                              1>> /tmp/packages.ks 2>/dev/null
-[ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
+config.get packages
 
 #partition - clear
 ${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks"              1> /tmp/partition.ks 2>/dev/null
