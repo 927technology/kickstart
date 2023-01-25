@@ -53,7 +53,8 @@ network  --hostname=minimal.domain.tld
 exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter pre scripts here
-url=https://raw.githubusercontent.com/927technology/kickstart/main
+export branch=ol7
+export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
 /bin/curl -s ${url}/distro/el/pre/header.txt
 /bin/curl -s ${url}/distro/el/pre/variables/minimal.v > /tmp/variables.v
