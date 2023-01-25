@@ -9,48 +9,34 @@ function config.get {
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
     ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
-    if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-        ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
-    else
-        #Query ID/Version
-        ${cmd_echo} ${ID}/${major_version}/${lsetting}
-        ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
-        if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-            ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
-        else
-            #Query ID
-            ${cmd_echo} ${ID}/${lsetting}
-            ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
-            if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-                ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
-            else
-            #Query EL/Version/Arch
-                ${cmd_echo} el/${major_version}/${arch}/${lsetting}
-                ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
-                if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-                    ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
-                else
-                    #Query EL/Version
-                    ${cmd_echo} el/${major_version}/${lsetting}
-                    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
-                    if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-                        ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${major_version}
-                    else
-                        #Query EL
-                        ${cmd_echo} el/${lsetting}
-                        ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks >> /tmp/${lsetting}.ks
-                        if [ `file.isempty /tmp/${lsetting}.ks` -eq ${false} ]; then
-                            ${cmd_echo} writing /tmp/${lsetting}.ks from EL root
-                        else
-                            ${cmd_echo} failed writing /tmp/${lsetting}.ks
-                        fi
-                    fi
-                fi     
-            fi
-        fi
-    fi
+    ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
+ 
+    #Query ID/Version
+    ${cmd_echo} ${ID}/${major_version}/${lsetting}
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
 
-    ${cmd_echo}
+    #Query ID
+    ${cmd_echo} ${ID}/${lsetting}
+    ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
+
+    #Query EL/Version/Arch
+    ${cmd_echo} el/${major_version}/${arch}/${lsetting}
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
+
+    #Query EL/Version
+    ${cmd_echo} el/${major_version}/${lsetting}
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${major_version}
+
+    #Query EL
+    ${cmd_echo} el/${lsetting}
+    ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_echo} writing /tmp/${lsetting}.ks from EL root
+    ${cmd_echo} failed writing /tmp/${lsetting}.ks
+
 }
 function file.isempty {
     #accepts 1 arg file name.  returns boolean true if file is empty
