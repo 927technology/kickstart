@@ -8,40 +8,45 @@ function config.get {
 
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks > /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks               > /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/${build}.ks            >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     ${cmd_echo}
- 
+
     #Query ID/Version
     ${cmd_echo} ${ID}/${major_version}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/config.ks                      >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/${build}.ks                    >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     ${cmd_echo}
 
     #Query ID
     ${cmd_echo} ${ID}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/config.ks                                       >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${lsetting}/${build}.ks                                     >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} root
     ${cmd_echo}
 
     #Query EL/Version/Arch
     ${cmd_echo} el/${major_version}/${arch}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks                 >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/${build}.ks               >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     ${cmd_echo}
 
     #Query EL/Version
     ${cmd_echo} el/${major_version}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/config.ks                         >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/${build}.ks                       >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${major_version}
     ${cmd_echo}
 
     #Query EL
     ${cmd_echo} el/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${lsetting}/config.ks                                          >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${lsetting}/${build}.ks                                        >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from EL root
     ${cmd_echo}
-
 }
 function file.isempty {
     #accepts 1 arg file name.  returns boolean true if file is empty
@@ -54,44 +59,25 @@ function file.isempty {
     ${cmd_echo} ${lexitcode}
 }
 
-#commands
-cmd_awk=/bin/awk
-cmd_cat=/bin/cat
-cmd_curl=/bin/curl
-cmd_cut=/bin/cut
-cmd_dmsetup=/sbin/dmsetup
-cmd_echo=/bin/echo
-cmd_grep=/bin/grep
-cmd_head=/bin/head
-cmd_ls=/bin/ls
-cmd_lsblk=/bin/lsblk
-cmd_mdadm=/sbin/mdadm
-cmd_mktemp=/bin/mktemp
-cmd_rm=/bin/rm
-cmd_sed=/bin/sed
-cmd_touch=/bin/touch
-cmd_udevadm=/bin/udevadm
-cmd_uname=/bin/uname
-cmd_vgchange=/sbin/vgchange
-cmd_vgdisplay=/sbin/vgdisplay
-cmd_wipefs=/sbin/wipefs
-
-#bools
-true=1
-false=0
-exitok=0
-exitcrit=1
-
 #variables
+url=${1}                                                                                            #url from kickstart                                                                                                   
+source /tmp/variables.v                                                                             #source varables provided by kickstart
+                                                                                                    #source bools from git
+/bin/curl ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                      > /tmp/bool.v
+source /tmp/bool.v
+                                                                                                    #source dracut commands from git
+/bin/curl ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                                > /tmp/cmd_dracut.v
+source /tmp/cmd_dracut.v
+
+                                                                                                    #get ID and Version form initrd
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^ID=`
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^VERSION_ID=`
 
+                                                                                                    #get arch from kernel
 arch=`/bin/uname -p`
                                                                                                     #select the 1st block device only
-block_device=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_head} -n 1 | ${cmd_awk} '{print $1}'`     
+block_device=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_head} -n 1 | ${cmd_awk} '{print $1}'`
 block_device_size_raw=`${cmd_lsblk} | ${cmd_grep} disk[[:space:]]$ | ${cmd_awk} '{print $4}' | ${cmd_head} -n 1`
-url="https://raw.githubusercontent.com/927technology/kickstart/main"
-
 
 #main
                                                                                                     #get size unit and size for 1st block device
@@ -137,14 +123,14 @@ config.get network
 config.get repo
 
 #packages
-${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/packages/config.ks" 1> /tmp/packages.ks 2>/dev/null
+${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/packages/config.ks"                           1> /tmp/packages.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
 
-${cmd_curl} -sf "${url}/distro/el/${major_version}packages/minimal.ks" 1>> /tmp/packages.ks 2>/dev/null
+${cmd_curl} -sf "${url}/distro/el/${major_version}packages/minimal.ks"                              1>> /tmp/packages.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/packages.ks as clear || ${cmd_echo} failed to write /tmp/packages.ks as clear
 
 #partition - clear
-${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks" 1> /tmp/partition.ks 2>/dev/null
+${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks"              1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} failed to write /tmp/partition.ks as clear
 
 #partition - sometimes if there is a partiton already configured el will fail
@@ -157,7 +143,7 @@ ${cmd_vgchange} -an os
 
 # Clear software raid devices if any
 raid_devices=`${cmd_mktemp} /tmp/mdstat.XXXXXXXXX`
-${cmd_cat} /proc/mdstat | ${cmd_grep} ^md | ${cmd_cut} -d : -f 1 > ${raid_devices}
+${cmd_cat} /proc/mdstat | ${cmd_grep} ^md | ${cmd_cut} -d : -f 1                                    > ${raid_devices}
 
 if [ -s ${raid_devices} ]; then
     for raid_device in `${cmd_cat} ${raid_devices}`;do
@@ -179,17 +165,17 @@ ${cmd_wipefs} -f -a /dev/${block_device}
 case ${block_device_unit} in
     G)
         if [ ${block_device_size} -ge 32 ]; then
-            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/32g.ks" 1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/32g.ks"          1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} failed to write /tmp/partition.ks as 32g
 
         else
-            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks"         1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
         fi
     ;;
-    *) 
-        ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks" 1>> /tmp/partition.ks 2>/dev/null
+    *)
+        ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks"             1>> /tmp/partition.ks 2>/dev/null
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
     ;;

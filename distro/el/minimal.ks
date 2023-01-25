@@ -53,9 +53,12 @@ network  --hostname=minimal.domain.tld
 exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter pre scripts here
-curl -s https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/header.txt
-curl -s https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/stage.sh | /bin/bash
-curl -s https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/pre/footer.txt
+url=https://raw.githubusercontent.com/927technology/kickstart/main
+
+/bin/curl -s ${url}/distro/el/pre/header.txt
+/bin/curl -s ${url}/distro/el/pre/variables/minimal.v > /tmp/variables.v
+/bin/curl -s ${url}/distro/el/pre/stage.sh ${url} | /bin/bash
+/bin/curl -s ${url}/distro/el/pre/footer.txt
 
 # return to locally scheduled installer
 chvt 1

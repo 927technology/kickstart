@@ -1,3 +1,4 @@
+#dracut commands
 cmd_awk=/bin/awk
 cmd_cat=/bin/cat
 cmd_curl=/bin/curl
