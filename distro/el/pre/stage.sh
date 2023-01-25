@@ -161,17 +161,17 @@ ${cmd_wipefs} -f -a /dev/${block_device}
 case ${block_device_unit} in
     G)
         if [ ${block_device_size} -ge 32 ]; then
-            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/32g.ks"          1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/scheme/32g.ks"          1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} failed to write /tmp/partition.ks as 32g
 
         else
-            ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks"         1>> /tmp/partition.ks 2>/dev/null
+            ${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/scheme/auto.ks"         1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
         fi
     ;;
     *)
-        ${cmd_curl} -sf "${url}/distro/${ID}/${major_version}/partition/scheme/auto.ks"             1>> /tmp/partition.ks 2>/dev/null
+        ${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/scheme/auto.ks"             1>> /tmp/partition.ks 2>/dev/null
         [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as auto || ${cmd_echo} failed to write /tmp/partition.ks as auto
 
     ;;
