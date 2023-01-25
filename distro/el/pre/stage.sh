@@ -117,8 +117,7 @@ esac
 config.get addon
 
 #anaconda
-config.get ananconda
-
+config.get anaconda
 #authorization
 config.get authorization
 
