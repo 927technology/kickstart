@@ -56,7 +56,7 @@ reboot --eject
 exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter pre scripts here
-export branch=ol7
+export branch=main
 export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
 /bin/curl -s ${url}/distro/el/pre/header.txt

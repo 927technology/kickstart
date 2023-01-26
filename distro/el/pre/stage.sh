@@ -150,6 +150,7 @@ ${cmd_dmsetup} remove_all
 # De-activate exiting Volume Groups
 ${cmd_vgchange} -an system
 ${cmd_vgchange} -an os
+${cmd_vgchange} -an ol_minimal
 
 # Clear software raid devices if any
 raid_devices=`${cmd_mktemp} /tmp/mdstat.XXXXXXXXX`
