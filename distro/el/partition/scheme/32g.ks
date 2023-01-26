@@ -1,5 +1,5 @@
 # Disk partitioning information
-part pv.01 --fstype="lvmpv" --ondisk=sda --size=28600
+part pv.01 --fstype="lvmpv" --ondisk=sda --size=1 --grow
 part /boot --fstype="xfs" --ondisk=sda --size=1024
 volgroup system --pesize=4096 pv.01
 logvol /home --fstype="xfs" --size=1024 --name=home --vgname=system
