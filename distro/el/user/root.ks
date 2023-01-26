@@ -1,1 +1,0 @@
-rootpw --iscrypted $6$19KOuS2pPuJoRZcg$1UOOjGpwA2W3YExpHnegtPOOp7bvBvudsuJBOjbs4LGjsxLGM.Sdd9tOKtcEVSI35MUJxj3uuar5wJauslTEH.
