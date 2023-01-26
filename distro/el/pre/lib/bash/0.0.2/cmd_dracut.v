@@ -1,0 +1,21 @@
+#dracut commands
+cmd_awk=/bin/awk
+cmd_cat=/bin/cat
+cmd_curl=/bin/curl
+cmd_cut=/bin/cut
+cmd_dmsetup=/sbin/dmsetup
+cmd_echo=/bin/echo
+cmd_grep=/bin/grep
+cmd_head=/bin/head
+cmd_ls=/bin/ls
+cmd_lsblk=/bin/lsblk
+cmd_mdadm=/sbin/mdadm
+cmd_mktemp=/bin/mktemp
+cmd_rm=/bin/rm
+cmd_sed=/bin/sed
+cmd_touch=/bin/touch
+cmd_udevadm=/bin/udevadm
+cmd_uname=/bin/uname
+cmd_vgchange=/sbin/vgchange
+cmd_vgdisplay=/sbin/vgdisplay
+cmd_wipefs=/sbin/wipefs
