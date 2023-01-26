@@ -8,8 +8,8 @@ function config.get {
 
     #Query ID/Version/Arch
     ${cmd_echo} ${ID}/${major_version}/${arch}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/config.ks               > /tmp/${lsetting}.ks
-    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${arch}/${lsetting}/${build}.ks            >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/${arch}/config.ks               > /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/${ID}/${major_version}/${lsetting}/${arch}/${build}.ks            >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     ${cmd_echo}
 
@@ -36,8 +36,8 @@ function config.get {
 
     #Query EL/Version/Arch
     ${cmd_echo} el/${major_version}/${arch}/${lsetting}
-    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/config.ks                 >> /tmp/${lsetting}.ks
-    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${arch}/${lsetting}/${build}.ks               >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/${arch}/config.ks                 >> /tmp/${lsetting}.ks
+    ${cmd_curl} -sf ${url}/distro/el/${major_version}/${lsetting}/${arch}/${build}.ks               >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from ${ID} ${major_version}
     ${cmd_echo}
 
@@ -49,7 +49,7 @@ function config.get {
     ${cmd_echo}
 
     #Query EL/Arch
-    ${cmd_echo} el/${setting}/${arch}
+    ${cmd_echo} el/${lsetting}/${arch}
     ${cmd_curl} -sf ${url}/distro/el/${lsetting}/${arch}/${build}.ks                                          >> /tmp/${lsetting}.ks
     ${cmd_curl} -sf ${url}/distro/el/${lsetting}/${arch}/config.ks                                          >> /tmp/${lsetting}.ks
     ${cmd_echo} writing /tmp/${lsetting}.ks from EL ${arch}
