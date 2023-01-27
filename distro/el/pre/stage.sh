@@ -140,7 +140,7 @@ config.get repo
 config.get packages
 
 #partition - clear
-${cmd_curl} -sf "${url}/distro/el/${major_version}/partition/clear/${block_device}.ks"              1> /tmp/partition.ks 2>/dev/null
+${cmd_curl} -sf "${url}/distro/el/partition/clear/${block_device}.ks"                               1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} failed to write /tmp/partition.ks as clear
 
 #partition - sometimes if there is a partiton already configured el will fail
