@@ -11,7 +11,7 @@ source /tmp/bool.v
 source /tmp/cmd_dracut.v
 
 for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
-    /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                        >> /tmp/local.f
+    /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                         >> /tmp/${library}.f
     source /tmp/${library}.f
 done
                                                                                                     #get ID and Version form initrd
