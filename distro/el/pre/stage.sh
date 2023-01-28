@@ -10,9 +10,9 @@ source /tmp/bool.v
 /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                             > /tmp/cmd_dracut.v
 source /tmp/cmd_dracut.v
 
-for function in `${cmd_echo} ${funcitons} | ${cmd_sed} 's/,/ /g'; do`
-    /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${function}.f                        >> /tmp/local.f
-    source /tmp/${function}.f
+for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
+    /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                        >> /tmp/local.f
+    source /tmp/${library}.f
 done
                                                                                                     #get ID and Version form initrd
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^ID=`
