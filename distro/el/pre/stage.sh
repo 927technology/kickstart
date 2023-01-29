@@ -2,7 +2,8 @@
 
 #variables
 #url=${1}                                                                                           #url from kickstart                                                                                                   
-source /tmp/variables.v                                                                             #source varables provided by kickstart
+                                                                                                    #source varables provided by kickstart
+source /tmp/variables.v
                                                                                                     #source bools from git
 /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
 source /tmp/bool.v
