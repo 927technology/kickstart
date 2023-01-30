@@ -8,6 +8,7 @@ echo variables $?
 echo $build
 echo $bash_lib_ver
 echo $libraries
+
                                                                                                     #source bools from git
 /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
 source /tmp/bool.v
