@@ -12,11 +12,9 @@ echo $libraries
                                                                                                     #source bools from git
 /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
 source /tmp/bool.v
-echo bool $? /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v  
                                                                                                     #source dracut commands from git
 /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                             > /tmp/cmd_dracut.v
 source /tmp/cmd_dracut.v
-echo cmd_dracut $? /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v
 
 for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
     /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                         >> /tmp/${library}.f
@@ -79,12 +77,7 @@ config.get repo
 config.get packages
 
 #partition - clear
-if [ `${cmd_lsblk} -nb /dev/${block_device}2 | ${cmd_grep} -c ${block_device}2` -eq 0 ]; then
-    ${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}.ks                             1> /tmp/partition.ks 2>/dev/null
-else
-    ${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}.ks                             1> /tmp/partition.ks 2>/dev/null
-fi
-
+${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}.ks                                 1> /tmp/partition.ks 2>/dev/null
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} failed to write /tmp/partition.ks as clear
 
 #partition - sometimes if there is a partiton already configured el will fail
