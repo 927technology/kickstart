@@ -57,10 +57,11 @@ exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter pre scripts here
 export branch=main
+export build=minimal
 export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
 /bin/curl -s ${url}/distro/el/pre/header.txt
-/bin/curl -s ${url}/distro/el/pre/variables/minimal.v > /tmp/variables.v
+/bin/curl -s ${url}/distro/el/pre/variables/${build}.v > /tmp/variables.v
 /bin/curl -s ${url}/distro/el/pre/stage.sh | /bin/bash
 /bin/curl -s ${url}/distro/el/pre/footer.txt
 

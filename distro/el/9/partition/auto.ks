@@ -1,2 +1,0 @@
-# Disk partitioning information
-autopart
