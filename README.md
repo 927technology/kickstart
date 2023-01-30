@@ -10,14 +10,14 @@ This is a completely automated install.
 > 1 or more processors </br>
 > 2048Mb or more memory 
 
-1. You will need bootable media.  Any install media will work for the version of the OS you wish to install.
+1. You will need bootable media, NetBoot media does not work at this time, any minimal or full media will do.
     * [CentOS](https://www.centos.org/download/)
         * 7 Working
         * 8 Not working
         * 9 Not Working
-    * [Oracle](https://yum.oracle.com/oracle-linux-isos.html)
+    * [Oracle - UEK](https://yum.oracle.com/oracle-linux-isos.html)
         * 7 Working
-        * 8 Workingorking
+        * 8 Working
         * 9 Not working
     * [Rocky](https://rockylinux.org/download/)
         * 8 Working
