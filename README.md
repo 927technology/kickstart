@@ -16,8 +16,8 @@ This is a completely automated install.
         * 8 Not working
         * 9 Not Working
     * [Oracle](https://yum.oracle.com/oracle-linux-isos.html)
-        * 7 Not working
-        * 8 Not working
+        * 7 Working
+        * 8 Workingorking
         * 9 Not working
     * [Rocky](https://rockylinux.org/download/)
         * 8 Working
@@ -27,12 +27,12 @@ This is a completely automated install.
     ![kickstart1](./docs/images/kickstart1.png "Boot Menu")
 1. Append to the end of he boot command
     ```
-    inst.ks=https://https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
     ```
 
     The resulting command should look like
     ```
-    > vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet inst.ks=https://https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
+    > vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
     
     ```
     ![kickstart2](./docs/images/kickstart2.png "Boot Menu 2")
