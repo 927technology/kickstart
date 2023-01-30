@@ -1,7 +1,7 @@
 # Disk partitioning information
 part /boot              --fstype="xfs"      --size=1024     --ondisk=sda
 part pv.01              --fstype="lvmpv"    --size=28672    --ondisk=sda
-part pv.02              --fstype="lvmpv"    --size-1024     --ondisk=sda
+part pv.02              --fstype="lvmpv"    --size=1024     --ondisk=sda
 
 #volume group system
 volgroup system         --pesize=4096 pv.01
