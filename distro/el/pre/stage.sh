@@ -82,7 +82,7 @@ config.get packages
 if [ `${cmd_lsblk} -nb /dev/${block_device}2 | ${cmd_grep} -c ${block_device}2` -eq 0 ]; then
     ${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}.ks                             1> /tmp/partition.ks 2>/dev/null
 else
-    ${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}_existing.ks                    1> /tmp/partition.ks 2>/dev/null
+    ${cmd_curl} -sf ${url}/distro/el/partition/clear/${block_device}.ks                             1> /tmp/partition.ks 2>/dev/null
 fi
 
 [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partition.ks as clear || ${cmd_echo} failed to write /tmp/partition.ks as clear
