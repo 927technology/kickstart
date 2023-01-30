@@ -11,11 +11,11 @@ echo $libraries
                                                                                                     #source bools from git
 /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
 source /tmp/bool.v
-echo bool $?
+echo bool $? /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v  
                                                                                                     #source dracut commands from git
 /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                             > /tmp/cmd_dracut.v
 source /tmp/cmd_dracut.v
-echo cmd_dracut $?
+echo cmd_dracut $? /bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v
 
 for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
     /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                         >> /tmp/${library}.f
