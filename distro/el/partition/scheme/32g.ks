@@ -13,7 +13,7 @@ logvol swap             --fstype="swap"     --size=2048     --name=swap         
 logvol /tmp             --fstype="xfs"      --size=1024     --name=tmp              --vgname=system
 logvol /var/log/audit   --fstype="xfs"      --size=2048     --name=var_log_audit    --vgname=system
 
-volgroup system         --pesize=4096 pv.02
+volgroup data           --pesize=4096 pv.02
 logvol /etc/audit       --fstype="xfs"      --size=5        --name=etc_audit        --vgname=data
-logvol /etc/pam.d       --fstype="xfs"      --size=5        --name=etc_pamd         --vgname=data
+logvol /etc/pam.d       --fstype="xfs"      --size=5        --name=etc_pam.d         --vgname=data
 logvol /etc/ssh         --fstype="xfs"      --size=5        --name=etc_ssh          --vgname=data
