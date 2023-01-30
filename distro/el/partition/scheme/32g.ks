@@ -14,6 +14,7 @@ logvol /tmp             --fstype="xfs"      --size=1024     --name=tmp          
 logvol /var/log/audit   --fstype="xfs"      --size=2048     --name=var_log_audit    --vgname=system
 
 volgroup data           --pesize=4096 pv.02
-logvol /etc/audit       --fstype="xfs"      --size=5        --name=etc_audit        --vgname=data
-logvol /etc/pam.d       --fstype="xfs"      --size=5        --name=etc_pam.d         --vgname=data
-logvol /etc/ssh         --fstype="xfs"      --size=5        --name=etc_ssh          --vgname=data
+#logvol /vol            --fstype="xfs"      --size=5        --name=vol              --vgname=data
+#logvol /etc/audit      --fstype="xfs"      --size=5        --name=etc_audit        --vgname=data
+#logvol /etc/pam.d      --fstype="xfs"      --size=5        --name=etc_pam.d        --vgname=data
+#logvol /etc/ssh        --fstype="xfs"      --size=5        --name=etc_ssh          --vgname=data
