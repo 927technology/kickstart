@@ -4,12 +4,15 @@
 #url=${1}                                                                                           #url from kickstart                                                                                                   
                                                                                                     #source varables provided by kickstart
 source /tmp/variables.v
+echo variables $?
                                                                                                     #source bools from git
 /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
 source /tmp/bool.v
+echo bool $?
                                                                                                     #source dracut commands from git
 /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                             > /tmp/cmd_dracut.v
 source /tmp/cmd_dracut.v
+echo cmd_dracut $?
 
 for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
     /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                         >> /tmp/${library}.f
