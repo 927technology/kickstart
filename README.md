@@ -13,8 +13,8 @@ This is a completely automated install.
 1. You will need bootable media, NetBoot media does not work at this time, any minimal or full media will do.
     * [CentOS](https://www.centos.org/download/)
         * 7 Working
-        * 8 Not working
-        * 9 Not Working
+        * 8 Working - Not fully patching
+        * 9 Working
     * [Oracle - UEK](https://yum.oracle.com/oracle-linux-isos.html)
         * 7 Working
         * 8 Working

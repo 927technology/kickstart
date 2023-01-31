@@ -1,1 +1,1 @@
-keyboard 'us'
+keyboard --xlayouts='us'
