@@ -1,5 +1,3 @@
-# el 8 packages
-@^server-product-environment
-#@^minimal-environment
-#audit
-#audit-libs
+# el 9 packages
+@^minimal-environment
+
