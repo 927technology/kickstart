@@ -1,5 +1,4 @@
-#packages
-%include https://raw.githubusercontent.com/927technology/kickstart/main/centos/7/ks/packages/minimal.ks
+# tftp-server packages
 tftp-server
 wget
 xinetd

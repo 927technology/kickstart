@@ -1,1 +1,1 @@
-firewall --enabled --service=tftp
+firewall --service=tftp

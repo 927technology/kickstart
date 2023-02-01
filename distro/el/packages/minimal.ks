@@ -1,1 +1,1 @@
-# common packages
+# minimal packages
