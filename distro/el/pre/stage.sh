@@ -51,8 +51,12 @@ config.get addon
 
 #anaconda
 config.get anaconda
+
 #authorization
 config.get authorization
+
+#firewall
+config.get firewall
 
 #firstboot
 config.get firstboot

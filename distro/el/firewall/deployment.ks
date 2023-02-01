@@ -1,1 +1,0 @@
-firewall --enabled --service=dhcp,dhcpv6,http,https,tftp
