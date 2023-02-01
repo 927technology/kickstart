@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # enable services
 systemctl enable httpd
 
