@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # enable services
-systemctl enable mysqld
+systemctl enable mysql
 
 # firewall
 firewall-offline-cmd --add-port=3306/tcp
