@@ -51,6 +51,7 @@ config.get addon
 
 #anaconda
 config.get anaconda
+
 #authorization
 config.get authorization
 
