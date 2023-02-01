@@ -1,1 +1,1 @@
-firewall --service={http,https}
+firewall --service=http,https
