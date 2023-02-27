@@ -2,7 +2,7 @@
 
 -buildah
 -cockpit-podman
-containerd.io 
+#containerd.io 
 docker-buildx-plugin 
 docker-ce 
 docker-ce-cli
