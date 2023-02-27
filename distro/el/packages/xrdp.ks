@@ -7,6 +7,7 @@ docker-ce
 docker-ce-cli
 docker-compose-plugin
 mate-desktop
+-podman
 wget
 xinetd
 xrdp 
