@@ -5,7 +5,7 @@ docker-buildx-plugin
 docker-ce 
 docker-ce-cli
 docker-compose-plugin
-mate-desktop-environment
+mate-desktop
 wget
 xinetd
 xrdp 
