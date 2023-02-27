@@ -1,6 +1,7 @@
 # xrdp packages
 
 -buildah
+-cockpit-podman
 containerd.io 
 docker-buildx-plugin 
 docker-ce 
