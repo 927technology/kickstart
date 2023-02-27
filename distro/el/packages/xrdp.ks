@@ -1,5 +1,6 @@
 # xrdp packages
 
+-buildah
 containerd.io 
 docker-buildx-plugin 
 docker-ce 
