@@ -1,5 +1,8 @@
 # xrdp packages
 
+@Server with GUI
+@Sound and Video
+
 -buildah
 -cockpit-podman
 #containerd.io 
