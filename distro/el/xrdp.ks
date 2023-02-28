@@ -74,7 +74,7 @@ chvt 1
 exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter post scripts here
-lexport branch=main
+export branch=main
 export build=xrdp
 export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
