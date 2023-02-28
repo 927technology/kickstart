@@ -7,7 +7,8 @@ docker-buildx-plugin
 docker-ce 
 docker-ce-cli
 docker-compose-plugin
-mate-desktop
+gnome-desktop3
+#mate-desktop
 -podman
 -runc
 wget
