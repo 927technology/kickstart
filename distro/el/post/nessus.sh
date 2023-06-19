@@ -1,6 +1,7 @@
 #!/bin/bash
+nessus_version=10.5.2
 
-url=https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-10.4.1-es7.x86_64.rpm
+url=https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-${nessus_version}-es7.x86_64.rpm
 package=`echo ${url} | awk -F"/" '{print $NF}'`
 
 #download nessus rpm pakage per tennable preferred method
