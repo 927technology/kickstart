@@ -1,6 +1,23 @@
 #!/bin/bash
 type=${1}
 
+#variables
+#url=${1}                                                                                           #url from kickstart                                                                                                   
+                                                                                                    #source varables provided by kickstart
+source /tmp/variables.v
+
+                                                                                                    #source bools from git
+/bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/bool.v                                   > /tmp/bool.v
+source /tmp/bool.v
+                                                                                                    #source dracut commands from git
+/bin/curl -sf ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/cmd_dracut.v                             > /tmp/cmd_dracut.v
+source /tmp/cmd_dracut.v
+
+for library in `${cmd_echo} ${libraries} | ${cmd_sed} 's/,/ /g'`; do
+    /bin/curl -s ${url}/distro/el/pre/lib/bash/${bash_lib_ver}/${library}.f                         >> /tmp/${library}.f
+    source /tmp/${library}.f
+done
+
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^ID=`
 eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^VERSION_ID=`
 
@@ -30,7 +47,6 @@ case ${type} in
     esac
       
     url=https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-${nessus_version}-${build}.${arch}.rpm
-    cat $url
 
     package=`echo ${url} | awk -F"/" '{print $NF}'`
 
