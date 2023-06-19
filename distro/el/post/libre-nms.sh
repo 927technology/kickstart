@@ -50,7 +50,7 @@ SMTP_PASSWORD=ninepassword
 SMTP_FROM=foo@gmail.com
 EOF-snmp
 
-cat << EOF-compose /root/libre-nms/docker-compose.yml
+cat << EOF-compose > /root/libre-nms/docker-compose.yml
 version: "3.5"
 
 services:
