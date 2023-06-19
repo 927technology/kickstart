@@ -28,14 +28,14 @@ This is a completely automated install.
 1. Append to the end of he boot command
     
     </br>
-    
+
     Minimal Install - (All)
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
     ```   
     Nessus Install - (EL7)
     ```
-    > vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
+    > inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
     ```
     
     </br>
