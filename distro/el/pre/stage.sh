@@ -150,6 +150,3 @@ ${cmd_echo} Block Device Size Raw: ${block_device_size_raw}
 ${cmd_echo} Block Device Size: ${block_device_size}
 ${cmd_echo} Block Device Unit: ${block_device_unit}
 ${cmd_echo} URL: ${url}
-
-#variables
-export MAJOR_VERSION=${major_version}

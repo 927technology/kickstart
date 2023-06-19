@@ -1,11 +1,20 @@
 #!/bin/bash
 type=${1}
 
+eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^ID=`
+eval `${cmd_cat} /etc/os-release | ${cmd_grep} ^VERSION_ID=`
+
+case ${VERSION_ID} in
+    7 | 7.*)    major_version=7     ;;
+    8 | 8.*)    major_version=8     ;;
+    9 | 9.*)    major_version=9     ;;
+esac
+
 case ${type} in 
   local | *)
     nessus_version=10.5.2
 
-    case ${MAJOR_VERSION} in
+    case ${major_version} in
       7)
         arch==x86_64
         build=es7
@@ -21,6 +30,8 @@ case ${type} in
     esac
       
     url=https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-${nessus_version}-${build}.${arch}.rpm
+    cat $url
+
     package=`echo ${url} | awk -F"/" '{print $NF}'`
 
     #download nessus rpm pakage per tennable preferred method
