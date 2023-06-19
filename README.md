@@ -26,6 +26,9 @@ This is a completely automated install.
 1. Interrupt the boot media menu usually by pressing \<TAB\> which will display the boot command
     ![kickstart1](./docs/images/kickstart1.png "Boot Menu")
 1. Append to the end of he boot command
+    
+    </br>
+    
     Minimal Install - (All)
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
