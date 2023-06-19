@@ -35,7 +35,7 @@ This is a completely automated install.
     ```   
     Nessus Install - (EL7)
     ```
-    > inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
     ```
     
     </br>
