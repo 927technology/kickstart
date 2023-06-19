@@ -16,15 +16,15 @@ case ${type} in
 
     case ${major_version} in
       7)
-        arch==x86_64
+        arch=x86_64
         build=es7
       ;;
       8)
-        arch==x86_64
+        arch=x86_64
         build=es8
       ;;
       9)
-        arch==x86_64
+        arch=x86_64
         build=es9
       ;;
     esac
