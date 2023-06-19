@@ -152,4 +152,4 @@ ${cmd_echo} Block Device Unit: ${block_device_unit}
 ${cmd_echo} URL: ${url}
 
 #variables
-${cmd_echo} MAJOR_VERSION=${major_version} >> /tmp/variables.v
+export MAJOR_VERSION=${major_version}
