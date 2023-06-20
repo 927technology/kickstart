@@ -9,6 +9,8 @@ systemctl start docker
 curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 chmod -x /usr/local/bin/docker-compose
 
+useradd -d /home/librenms -s /bin/bash -m librenms -u 1000
+
 [ ! -d /root/libre-nms ] && mkdir -p /root/libre-nms
 
 cat << EOF-env > /root/libre-nms/.env
@@ -17,41 +19,43 @@ PUID=1000
 PGID=1000
 
 MYSQL_DATABASE=librenms
-MYSQL_USER=ninelibrenms
-MYSQL_PASSWORD="ninepassword"
+MYSQL_USER=librenms
+MYSQL_PASSWORD=asupersecretpassword
 EOF-env
 
 cat << EOF-libre > /root/libre-nms/librenms.env
 MEMORY_LIMIT=256M
+MAX_INPUT_VARS=1000
 UPLOAD_MAX_SIZE=16M
 OPCACHE_MEM_SIZE=128
 REAL_IP_FROM=0.0.0.0/32
 REAL_IP_HEADER=X-Forwarded-For
 LOG_IP_VAR=remote_addr
 
+CACHE_DRIVER=redis
+SESSION_DRIVER=redis
+REDIS_HOST=redis
+
 LIBRENMS_SNMP_COMMUNITY=librenmsdocker
-MEMCACHED_HOST=memcached
-MEMCACHED_PORT=11211
 
 LIBRENMS_WEATHERMAP=false
 LIBRENMS_WEATHERMAP_SCHEDULE=*/5 * * * *
 EOF-libre
 
 cat << EOF-snmp > /root/libre-nms/msmtpd.env
-# https://github.com/crazy-max/docker-msmtpd
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_TLS=on
 SMTP_STARTTLS=on
 SMTP_TLS_CHECKCERT=on
 SMTP_AUTH=on
-SMTP_USER=nineuser
-SMTP_PASSWORD=ninepassword
+SMTP_USER=foo
+SMTP_PASSWORD=bar
 SMTP_FROM=foo@gmail.com
 EOF-snmp
 
 cat << EOF-compose > /root/libre-nms/docker-compose.yml
-version: "3.5"
+name: librenms
 
 services:
   db:
@@ -71,13 +75,6 @@ services:
       - "MYSQL_DATABASE=${MYSQL_DATABASE}"
       - "MYSQL_USER=${MYSQL_USER}"
       - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
-    restart: always
-
-  memcached:
-    image: memcached:alpine
-    container_name: librenms_memcached
-    environment:
-      - "TZ=${TZ}"
     restart: always
 
   redis:
@@ -107,11 +104,10 @@ services:
         protocol: tcp
     depends_on:
       - db
-      - memcached
+      - redis
       - msmtpd
     volumes:
       - "./librenms:/data"
-#      - "./librenms/config/config.php:/opt/librenfs/config.php"
     env_file:
       - "./librenms.env"
     environment:
@@ -123,9 +119,6 @@ services:
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
-      - "REDIS_HOST=redis"
-      - "REDIS_PORT=6379"
-      - "REDIS_DB=0"
     restart: always
 
   dispatcher:
@@ -152,9 +145,6 @@ services:
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
       - "DISPATCHER_NODE_ID=dispatcher1"
-      - "REDIS_HOST=redis"
-      - "REDIS_PORT=6379"
-      - "REDIS_DB=0"
       - "SIDECAR_DISPATCHER=1"
     restart: always
 
@@ -167,6 +157,7 @@ services:
       - NET_RAW
     depends_on:
       - librenms
+      - redis
     ports:
       - target: 514
         published: 514
@@ -187,14 +178,47 @@ services:
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
-      - "REDIS_HOST=redis"
-      - "REDIS_PORT=6379"
-      - "REDIS_DB=0"
       - "SIDECAR_SYSLOGNG=1"
     restart: always
+
+  snmptrapd:
+    image: librenms/librenms:latest
+    container_name: librenms_snmptrapd
+    hostname: librenms-snmptrapd
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    depends_on:
+      - librenms
+      - redis
+    ports:
+      - target: 162
+        published: 162
+        protocol: tcp
+      - target: 162
+        published: 162
+        protocol: udp
+    volumes:
+      - "./librenms:/data"
+    env_file:
+      - "./librenms.env"
+    environment:
+      - "TZ=${TZ}"
+      - "PUID=${PUID}"
+      - "PGID=${PGID}"
+      - "DB_HOST=db"
+      - "DB_NAME=${MYSQL_DATABASE}"
+      - "DB_USER=${MYSQL_USER}"
+      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "DB_TIMEOUT=60"
+      - "SIDECAR_SNMPTRAPD=1"
+    restart: always
+
 EOF-compose
 
 chown -R root:root /root/libre-nms
-chmod -R 550 /root/libre-nms
+chmod -R 770 /root/libre-nms
 
-docker-compose up -d -f /root/libre-nms/docker-compose.yml
+cd /root/libre-nms
+docker-compose up
+docker-compose down
