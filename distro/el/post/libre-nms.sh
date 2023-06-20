@@ -7,7 +7,7 @@ systemctl enable docker
 systemctl start docker
 
 curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-chmod -x /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 useradd -d /home/librenms -s /bin/bash -m librenms -u 1000
 
