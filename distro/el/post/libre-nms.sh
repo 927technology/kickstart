@@ -220,5 +220,6 @@ chown -R root:root /root/libre-nms
 chmod -R 770 /root/libre-nms
 
 cd /root/libre-nms
-docker-compose up
+docker-compose up -d
+sleep 120
 docker-compose down
