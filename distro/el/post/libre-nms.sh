@@ -70,18 +70,18 @@ services:
     volumes:
       - "./db:/var/lib/mysql"
     environment:
-      - "TZ=${TZ}"
+      - "TZ=\${TZ}"
       - "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
-      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
-      - "MYSQL_USER=${MYSQL_USER}"
-      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_DATABASE=\${MYSQL_DATABASE}"
+      - "MYSQL_USER=\${MYSQL_USER}"
+      - "MYSQL_PASSWORD=\${MYSQL_PASSWORD}"
     restart: always
 
   redis:
     image: redis:5.0-alpine
     container_name: librenms_redis
     environment:
-      - "TZ=${TZ}"
+      - "TZ=\${TZ}"
     restart: always
 
   msmtpd:
@@ -111,13 +111,13 @@ services:
     env_file:
       - "./librenms.env"
     environment:
-      - "TZ=${TZ}"
-      - "PUID=${PUID}"
-      - "PGID=${PGID}"
+      - "TZ=\${TZ}"
+      - "PUID=\${PUID}"
+      - "PGID=\${PGID}"
       - "DB_HOST=db"
-      - "DB_NAME=${MYSQL_DATABASE}"
-      - "DB_USER=${MYSQL_USER}"
-      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "DB_NAME=\${MYSQL_DATABASE}"
+      - "DB_USER=\${MYSQL_USER}"
+      - "DB_PASSWORD=\${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
     restart: always
 
@@ -136,13 +136,13 @@ services:
     env_file:
       - "./librenms.env"
     environment:
-      - "TZ=${TZ}"
-      - "PUID=${PUID}"
-      - "PGID=${PGID}"
+      - "TZ=\${TZ}"
+      - "PUID=\${PUID}"
+      - "PGID=\${PGID}"
       - "DB_HOST=db"
-      - "DB_NAME=${MYSQL_DATABASE}"
-      - "DB_USER=${MYSQL_USER}"
-      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "DB_NAME=\${MYSQL_DATABASE}"
+      - "DB_USER=\${MYSQL_USER}"
+      - "DB_PASSWORD=\${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
       - "DISPATCHER_NODE_ID=dispatcher1"
       - "SIDECAR_DISPATCHER=1"
@@ -170,13 +170,13 @@ services:
     env_file:
       - "./librenms.env"
     environment:
-      - "TZ=${TZ}"
-      - "PUID=${PUID}"
-      - "PGID=${PGID}"
+      - "TZ=\${TZ}"
+      - "PUID=\${PUID}"
+      - "PGID=\${PGID}"
       - "DB_HOST=db"
-      - "DB_NAME=${MYSQL_DATABASE}"
-      - "DB_USER=${MYSQL_USER}"
-      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "DB_NAME=\${MYSQL_DATABASE}"
+      - "DB_USER=\${MYSQL_USER}"
+      - "DB_PASSWORD=\${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
       - "SIDECAR_SYSLOGNG=1"
     restart: always
@@ -203,13 +203,13 @@ services:
     env_file:
       - "./librenms.env"
     environment:
-      - "TZ=${TZ}"
-      - "PUID=${PUID}"
-      - "PGID=${PGID}"
+      - "TZ=\${TZ}"
+      - "PUID=\${PUID}"
+      - "PGID=\${PGID}"
       - "DB_HOST=db"
-      - "DB_NAME=${MYSQL_DATABASE}"
-      - "DB_USER=${MYSQL_USER}"
-      - "DB_PASSWORD=${MYSQL_PASSWORD}"
+      - "DB_NAME=\${MYSQL_DATABASE}"
+      - "DB_USER=\${MYSQL_USER}"
+      - "DB_PASSWORD=\${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
       - "SIDECAR_SNMPTRAPD=1"
     restart: always
