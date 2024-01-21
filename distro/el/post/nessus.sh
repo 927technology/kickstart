@@ -46,7 +46,7 @@ case ${type} in
     #install docker-ce
     curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
-    docker pull tenable/nessus:oracle-latest
+    docker pull tenable/nessus:latest-oracle
 
     docker run                    \
       -d                          \
