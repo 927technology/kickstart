@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#banner
+curl -s https://raw.githubusercontent.com/927technology/kicksart/distro/el/post/docker-header.txt
+
 #install yum utils
 yum install -y yum-utils
 
