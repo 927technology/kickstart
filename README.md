@@ -17,8 +17,8 @@ This is a completely automated install.
         * 9 Working
     * [Oracle - UEK](https://yum.oracle.com/oracle-linux-isos.html)
         * 7 Working
-        * 8 Working
-        * 9 Not working
+        * 8 Working - Not fully tested
+        * 9 Working
     * [Rocky](https://rockylinux.org/download/)
         * 8 Working
         * 9 Working
@@ -33,6 +33,14 @@ This is a completely automated install.
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/minimal.ks
     ```   
+    
+    Docker-CE Install - (All)
+    ```
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/docker.ks
+    ``` 
+    
+    
+    
     Nessus Install - (EL7)
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 

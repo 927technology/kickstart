@@ -41,17 +41,10 @@ case ${type} in
 
     #enable the service
     systemctl enable nessusd
-
-
-    #firewall
-    firewall-offline-cmd --add-port=8834/tcp
   ;;
   docker)
-    yum install -y yum-utils
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-    yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    systemctl enable docker
-    systemctl start docker
+    #install docker-ce
+    curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
     docker pull tenable/nessus:oracle-latest
 
@@ -68,3 +61,5 @@ case ${type} in
   ;;
 esac
 
+#firewall
+firewall-offline-cmd --add-port=8834/tcp
