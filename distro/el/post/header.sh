@@ -1,4 +1,4 @@
-case install in
+case $1 in
     docker)
 
  ██████████                     █████                        
