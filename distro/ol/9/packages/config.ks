@@ -1,2 +1,3 @@
 #ol 9 packages
-@^minimal-environment
+#@^minimal-environment
+@^server-product-environment
