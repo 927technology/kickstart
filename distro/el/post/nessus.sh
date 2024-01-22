@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #install docker-ce
-curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh
+curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
 #install nessus
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/nessus.txt
