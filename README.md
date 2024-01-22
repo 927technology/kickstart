@@ -5,12 +5,12 @@
 
 This is a completely automated install.   
 
-> OS Requirements </br>
+OS Requirements
 > 1 or more network interfaces with internet connectivity </br>
 > 1 or more processors </br>
 > 2048Mb or more memory 
 
-1. You will need bootable media, NetBoot media does not work at this time, any minimal or full media will do.
+1. You will need bootable media, NetBoot media does not work at this time, any minimal or full media will do.  Boot media is important becuause it defines th OS major version.  The OS detection looks at the OS defined in the initrd and builds based on the major version.  A 9.1 OL will patch to the latest 9.x that is defined by the Distro maintainer.
     * [CentOS](https://www.centos.org/download/)
         * 7 Working
         * 8 Working - Not fully patching
@@ -41,12 +41,15 @@ This is a completely automated install.
     
     
     
-    Nessus Install - (EL7)
+    Nessus Install - (All): As Container
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
     ```
+            URL: https://<ip>:8834
+            Username: nineuser        
+            Password: ninepassword
+
     
-    </br>
 
     The resulting command should look like
     ```
