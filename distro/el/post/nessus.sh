@@ -7,7 +7,7 @@ curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/e
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/nessus.txt
 
 
-cat << EOF-Nessus > /etc/init.d/nessus.sh
+cat << EOF-Nessus > /sbin/nessus.sh
 docker pull tenable/nessus:latest-oracle
 
 docker run                    \
@@ -20,6 +20,10 @@ docker run                    \
   tenable/nessus:latest-oracle
 
 EOF-Nessus
+
+cat << EOF-Cron > /etc/cron.d/nessus
+@reboot root /sbin/nessus.sh && rm -f /etc/cron.d/nessus
+EOF-Cron
 
 #firewall
 firewall-offline-cmd --add-port=8834/tcp
