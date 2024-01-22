@@ -21,6 +21,8 @@ docker run                    \
 
 EOF-Nessus
 
+chmod +x /sbin/nessus.sh
+
 cat << EOF-Cron > /etc/cron.d/nessus
 @reboot root /sbin/nessus.sh && rm -f /etc/cron.d/nessus
 EOF-Cron
