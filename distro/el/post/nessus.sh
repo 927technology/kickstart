@@ -15,7 +15,6 @@ docker run                    \
   --name nessus               \
   -p 8834:8834                \
   --restart always            \
-  -v /opt/nessus:/opt/nessus  \
   tenable/nessus:latest-oracle
 
 #firewall
