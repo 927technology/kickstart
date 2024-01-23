@@ -219,7 +219,7 @@ EOF-compose
 cat << EOF-LibreNMS > /sbin/libre-nms.sh
 #!/bin/bash
 docker-compose -f /etc/libre-nms/docker-compose.yaml up --detach
-EOF-MySQL
+EOF-LibreNMS
 
 chmod +x /sbin/libre-nms.sh
 
