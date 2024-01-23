@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#!/bin/bash
+yum install -y yum-utils
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl enable docker
+systemctl start docker
 
-#install docker-ce
-curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
+curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
-#install nessus
-curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/libre-nms.txt
-
-#add librenms user
 useradd -d /home/librenms -s /bin/bash -m librenms -u 1000
 
-mkdir -p /etc/libre-nms
+[ ! -d /root/libre-nms ] && mkdir -p /root/libre-nms
 
-cat << EOF-env > /etc/libre-nms/.env
+cat << EOF-env > /root/libre-nms/.env
 TZ=America/Chicago
 PUID=1000
 PGID=1000
@@ -23,7 +23,7 @@ MYSQL_USER=librenms
 MYSQL_PASSWORD=asupersecretpassword
 EOF-env
 
-cat << EOF-libre > /etc/libre-nms/librenms.env
+cat << EOF-libre > /root/libre-nms/librenms.env
 MEMORY_LIMIT=256M
 MAX_INPUT_VARS=1000
 UPLOAD_MAX_SIZE=16M
@@ -42,7 +42,7 @@ LIBRENMS_WEATHERMAP=false
 LIBRENMS_WEATHERMAP_SCHEDULE=*/5 * * * *
 EOF-libre
 
-cat << EOF-snmp > /etc/libre-nms/msmtpd.env
+cat << EOF-snmp > /root/libre-nms/msmtpd.env
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_TLS=on
@@ -54,8 +54,7 @@ SMTP_PASSWORD=bar
 SMTP_FROM=foo@gmail.com
 EOF-snmp
 
-
-cat << EOF-compose > /etc/libre-nms/docker-compose.yml
+cat << EOF-compose > /root/libre-nms/docker-compose.yml
 name: librenms
 
 services:
@@ -214,15 +213,13 @@ services:
       - "DB_TIMEOUT=60"
       - "SIDECAR_SNMPTRAPD=1"
     restart: always
+
 EOF-compose
 
-cat << EOF-LibreNMS > /sbin/libre-nms.sh
-#!/bin/bash
-docker-compose up -d -f /etc/libre-nms/docker-compose.yaml 
-EOF-MySQL
+chown -R root:root /root/libre-nms
+chmod -R 770 /root/libre-nms
 
-chmod +x /sbin/libre-nms.sh
-
-cat << EOF-LibreNMS > /etc/cron.d/libre-nms
-@reboot root /sbin/libre-nms.sh && rm -f /etc/cron.d/libre-nms
-EOF-LibreNMS
+cd /root/libre-nms
+docker-compose up -d
+sleep 120
+docker-compose down

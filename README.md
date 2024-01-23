@@ -27,7 +27,6 @@ OS Requirements
     ![kickstart1](./docs/images/kickstart1.png "Boot Menu")
 1. Append to the end of he boot command
     
-    </br>
 
     Minimal Install - (All)
     ```
@@ -39,8 +38,13 @@ OS Requirements
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/docker.ks
     ``` 
     
-    
-    
+    MySql Install - (All): As Container
+    ```
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/mysql.ks 
+    ```
+            Password: ninepassword
+
+
     Nessus Install - (All): As Container
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/nessus.ks 
