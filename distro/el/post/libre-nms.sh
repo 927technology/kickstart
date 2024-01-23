@@ -218,7 +218,7 @@ EOF-compose
 
 cat << EOF-LibreNMS > /sbin/libre-nms.sh
 #!/bin/bash
-docker-compose up -d -f /etc/libre-nms/docker-compose.yaml 
+docker-compose -f /etc/libre-nms/docker-compose.yaml up --detach
 EOF-MySQL
 
 chmod +x /sbin/libre-nms.sh
@@ -226,3 +226,6 @@ chmod +x /sbin/libre-nms.sh
 cat << EOF-LibreNMS > /etc/cron.d/libre-nms
 @reboot root /sbin/libre-nms.sh && rm -f /etc/cron.d/libre-nms
 EOF-LibreNMS
+
+# firewall
+firewall-offline-cmd --add-port=8000/tcp
