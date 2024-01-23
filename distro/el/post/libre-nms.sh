@@ -218,7 +218,7 @@ EOF-compose
 
 cat << EOF-LibreNMS > /sbin/libre-nms.sh
 #!/bin/bash
-docker-compose -f /etc/libre-nms/docker-compose.yml up --detach
+/usr/local/bin/docker-compose -f /etc/libre-nms/docker-compose.yml up --detach
 EOF-LibreNMS
 
 chmod +x /sbin/libre-nms.sh
