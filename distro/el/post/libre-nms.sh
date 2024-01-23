@@ -13,6 +13,11 @@ useradd -d /home/librenms -s /bin/bash -m librenms -u 1000
 
 mkdir -p /etc/libre-nms
 
+#persistent file paths
+#mkdir -p /vol/var/lib/mysql
+#mkdir -p /vol/data
+chmod 755 /vol
+
 cat << EOF-env > /etc/libre-nms/.env
 TZ=America/Chicago
 PUID=1000
@@ -69,7 +74,7 @@ services:
       - "--character-set-server=utf8mb4"
       - "--collation-server=utf8mb4_unicode_ci"
     volumes:
-      - "./db:/var/lib/mysql"
+      - "/vol/var/lib/mysql:/var/lib/mysql"
     environment:
       - "TZ=\${TZ}"
       - "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
@@ -108,7 +113,7 @@ services:
       - redis
       - msmtpd
     volumes:
-      - "./librenms:/data"
+      - "/vol/data:/data"
     env_file:
       - "./librenms.env"
     environment:
@@ -133,7 +138,7 @@ services:
       - librenms
       - redis
     volumes:
-      - "./librenms:/data"
+      - "/vol/data:/data"
     env_file:
       - "./librenms.env"
     environment:
@@ -167,7 +172,7 @@ services:
         published: 514
         protocol: udp
     volumes:
-      - "./librenms:/data"
+      - "/vol/data:/data"
     env_file:
       - "./librenms.env"
     environment:
@@ -200,7 +205,7 @@ services:
         published: 162
         protocol: udp
     volumes:
-      - "./librenms:/data"
+      - "/vol/data:/data"
     env_file:
       - "./librenms.env"
     environment:
@@ -226,6 +231,8 @@ chmod +x /sbin/libre-nms.sh
 cat << EOF-LibreNMS > /etc/cron.d/libre-nms
 @reboot root /sbin/libre-nms.sh && rm -f /etc/cron.d/libre-nms
 EOF-LibreNMS
+
+
 
 # firewall
 firewall-offline-cmd --add-port=8000/tcp
