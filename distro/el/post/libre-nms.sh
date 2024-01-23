@@ -5,7 +5,7 @@
 #install docker-ce
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
-#install nessus
+#install libre-nms
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/libre-nms.txt
 
 #add librenms user
