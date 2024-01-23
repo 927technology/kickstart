@@ -16,6 +16,7 @@ mkdir -p /etc/libre-nms
 #persistent file paths
 #mkdir -p /vol/var/lib/mysql
 #mkdir -p /vol/data
+mkdir -p /vol
 chmod 755 /vol
 
 cat << EOF-env > /etc/libre-nms/.env
