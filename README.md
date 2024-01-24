@@ -38,11 +38,11 @@ OS Requirements
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/docker.ks
     ``` 
     
-    MySql Install - (All): As Container
+    MariaDB Install - (All): As Container
     ```
-    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/mysql.ks 
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/mariadb.ks 
     ```
-            Password: ninepassword
+            MariaDB Root Password: ninepassword
 
 
     Nessus Install - (All): As Container
