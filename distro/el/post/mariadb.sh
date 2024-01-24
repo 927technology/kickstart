@@ -1,6 +1,6 @@
 #!/bin/bash
 
-application=mysql
+application=mariadb
 
 # install docker-ce
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
@@ -30,6 +30,7 @@ services:
     container_name: db
     environment:
       - "MARIADB_ROOT_PASSWORD=\${MARIADB_ROOT_PASSWORD}"
+    hostname: db
     image: mariadb:\${MARIADB_VERSION}
     ports:
       - target: 3306
