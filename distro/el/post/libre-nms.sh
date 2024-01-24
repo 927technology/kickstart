@@ -14,8 +14,6 @@ useradd -d /home/librenms -s /bin/bash -m librenms -u 1000
 mkdir -p /etc/libre-nms
 
 #persistent file paths
-#mkdir -p /vol/var/lib/mysql
-#mkdir -p /vol/data
 mkdir -p /vol
 chmod 755 /vol
 

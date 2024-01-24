@@ -1,33 +1,56 @@
 #!/bin/bash
 
-#install docker-ce
+application=mysql
+
+# install docker-ce
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
-#install mysql
-curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/mysql.txt
+# applicaiton header
+curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/${application}.txt
 
-#persistent mysql db on host
+# configuration directory
+mkdir -p /etc/${application}
+
+# persistent data paths
 mkdir -p /vol/var/lib/mysql
 
-cat << EOF-MySQL > /sbin/mysql.sh
-docker pull mysql:latest
+# create docker .env
+cat << EOF-env > /etc/${application}/.env
+MYSQL_PASSWORD=ninepassword
+MYSQL_VERSION=latest
+EXTERNAL_PORT=3306
+EOF-env
 
-docker run                              \
-  -d                                    \
-  -e MYSQL_ROOT_PASSWORD=ninepassword   \
-  --name mysql                          \
-  -p 3306:3306                          \
-  -v /vol/var/lib/mysql:/var/lib/mysql  \
-  --restart always                      \
-  mysql:latest
+# create docker-compose
+cat << EOF-compose > /etc/${application}/docker-compose.yml
+name: mysql
 
-EOF-MySQL
+services:
+  db:
+    container_name: db
+    image: mysql:\${MYSQL_VERSION}
+    ports:
+      - target: 3306
+        published: \${EXTERNAL_PORT}
+        protocol: tcp
+    restart: always
+    volumes:
+      - "/vol/var/lib/mysql:/var/lib/mysql"
 
-chmod +x /sbin/mysql.sh
+EOF-compose
 
-cat << EOF-MySQL > /etc/cron.d/mysql
-@reboot root /sbin/mysql.sh && rm -f /etc/cron.d/mysql
-EOF-MySQL
+# create launcher
+cat << EOF-launcher > /sbin/${application}.sh
+#!/bin/bash
+/usr/local/bin/docker-compose -f /etc/${application}/docker-compose.yml up --detach
+EOF-launcher
+
+chmod +x /sbin/${application}.sh
+
+# create cron job
+cat << EOF-cron > /etc/cron.d/${application}
+@reboot root /sbin/${application}.sh && rm -f /etc/cron.d/${application}
+EOF-cron
 
 # firewall
 firewall-offline-cmd --add-port=3306/tcp
