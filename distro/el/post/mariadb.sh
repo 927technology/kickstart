@@ -16,8 +16,8 @@ mkdir -p /vol/var/lib/mysql
 
 # create docker .env
 cat << EOF-env > /etc/${application}/.env
-MYSQL_PASSWORD=ninepassword
-MYSQL_VERSION=latest
+MARIADB_ROOT_PASSWORD=ninepassword
+MARIADB_VERSION=latest
 EXTERNAL_PORT=3306
 EOF-env
 
@@ -28,14 +28,16 @@ name: mysql
 services:
   db:
     container_name: db
-    image: mysql:\${MYSQL_VERSION}
+    environment:
+      - "MARIADB_ROOT_PASSWORD=\${MARIADB_ROOT_PASSWORD}"
+    image: mariadb:\${MARIADB_VERSION}
     ports:
       - target: 3306
         published: \${EXTERNAL_PORT}
         protocol: tcp
     restart: always
     volumes:
-      - "/vol/var/lib/mysql:/var/lib/mysql"
+      - "/vol/var/lib/mysql:/var/lib/mysql:Z"
 
 EOF-compose
 
@@ -51,6 +53,8 @@ chmod +x /sbin/${application}.sh
 cat << EOF-cron > /etc/cron.d/${application}
 @reboot root /sbin/${application}.sh && rm -f /etc/cron.d/${application}
 EOF-cron
+
+chmod +x /usr/local/bin/mariadb
 
 # firewall
 firewall-offline-cmd --add-port=3306/tcp
