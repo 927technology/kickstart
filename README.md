@@ -38,6 +38,12 @@ OS Requirements
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/docker.ks
     ``` 
     
+    Libre NMS Install - (All): As Container
+    ```
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/librenms.ks 
+    ```
+            URL:  http://<ip>:8000
+
     MariaDB Install - (All): As Container
     ```
     inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/mariadb.ks 
