@@ -7,7 +7,7 @@ curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/e
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/mitmrouter.txt
 
 # install dependancies
-yum erase firewalld
+yum erase -y firewalld
 yum install -y wget tar iptables-utils iptables
 
 # create service account
