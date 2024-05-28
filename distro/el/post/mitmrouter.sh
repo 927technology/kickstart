@@ -3,7 +3,7 @@
 #install docker-ce
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
-#install nessus
+#install mitmrouter
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/mitmrouter.txt
 
 # install dependancies
@@ -27,6 +27,7 @@ echo net.ipv4.conf.all.send_redirects = 0 >> /etc/sysctl.d/mitmrouter.conf
 # create logging directory
 mkdir /var/log/mitmrouter
 chown mitm:mitm /var/log/mitmrouter
+chmod 770 /var/log/mitmrouter
 
 cat << EOF-MITMRouter > /sbin/mitmrouter.sh
 docker pull 927technology/mitmrouter:0.0.2
