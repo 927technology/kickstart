@@ -19,10 +19,10 @@ echo net.ipv6.conf.all.forwarding = 1     >> /etc/sysctl.d/mitmproxy.conf
 echo net.ipv4.conf.all.send_redirects = 0 >> /etc/sysctl.d/mitmproxy.conf
 
 # configure firewall
-iptables  -t nat -A PREROUTING -i eth0 -p tcp --dport 80  -j REDIRECT --to-port 8080
-iptables  -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
-ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 80  -j REDIRECT --to-port 8080
-ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+iptables  -t nat -A PREROUTING -i enp0s3 -p tcp --dport 80  -j REDIRECT --to-port 8080
+iptables  -t nat -A PREROUTING -i enp0s3 -p tcp --dport 443 -j REDIRECT --to-port 8080
+ip6tables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 80  -j REDIRECT --to-port 8080
+ip6tables -t nat -A PREROUTING -i enp0s3 -p tcp --dport 443 -j REDIRECT --to-port 8080
 
 # create logging directory
 mkdir /var/log/mitmproxy
