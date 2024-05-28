@@ -51,5 +51,5 @@ EOF-MITMRouter
 chmod +x /sbin/mitmrouter.sh
 
 cat << EOF-Cron > /etc/cron.d/mitmrouter
-@reboot mitm /sbin/mitmrouter.sh && rm -f /etc/cron.d/mitmrouter
+@reboot root /sbin/mitmrouter.sh && rm -f /etc/cron.d/mitmrouter
 EOF-Cron
