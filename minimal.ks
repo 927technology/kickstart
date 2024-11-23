@@ -18,8 +18,9 @@ network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
 network  --hostname=minimal.ks.927.technology
 
 %packages
-#@^minimal-environment
-@"Minimal Install"
+@^minimal-environment
+@core
+@base
 %end
 
 # Run the Setup Agent on first boot
