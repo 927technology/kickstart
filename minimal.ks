@@ -26,11 +26,12 @@ network  --hostname=minimal.ks.927.technology
 firstboot --disable
 
 # Generated using Blivet version 3.6.0
-ignoredisk --only-use=sda
-# Partition clearing information
-# clearpart --list=sda1,sda2
-zerombr
-#clearpart --none --initlabel
+
+clearpart --all --initlabel
+ignoredisk  --drives=sda
+
+
+
 # Disk partitioning information
 part /boot --fstype="xfs" --ondisk=sda --size=953
 part pv.1774 --fstype="lvmpv" --ondisk=sda --size=26416
