@@ -3,6 +3,7 @@
 #version=OL9
 # Use graphical install
 text
+install
 %addon com_redhat_kdump --enable --reserve-mb='auto'
 
 %end
@@ -17,12 +18,12 @@ network  --bootproto=dhcp --device=enp0s3 --ipv6=auto --activate
 network  --hostname=minimal.ks.927.technology
 
 %packages
-@^minimal-environment
-
+#@^minimal-environment
+@"Minimal Install"
 %end
 
 # Run the Setup Agent on first boot
-firstboot --enable
+firstboot --disable
 
 # Generated using Blivet version 3.6.0
 ignoredisk --only-use=sda
