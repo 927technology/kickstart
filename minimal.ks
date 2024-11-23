@@ -27,7 +27,7 @@ firstboot --enable
 # Generated using Blivet version 3.6.0
 ignoredisk --only-use=sda
 # Partition clearing information
-clearpart --list=sda1,sda2
+# clearpart --list=sda1,sda2
 zerombr
 #clearpart --none --initlabel
 # Disk partitioning information
