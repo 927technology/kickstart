@@ -3,7 +3,6 @@
 #version=OL9
 # Use graphical install
 text
-install
 %addon com_redhat_kdump --enable --reserve-mb='auto'
 
 %end
