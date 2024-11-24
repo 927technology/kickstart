@@ -1,2 +1,1 @@
-# Use CD
-cdrom
+# el/source
