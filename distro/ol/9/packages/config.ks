@@ -2,4 +2,3 @@
 @^minimal-environment
 @core
 @base
-#@^server-product-environment
