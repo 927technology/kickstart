@@ -4,8 +4,12 @@
 # Use graphical install
 text
 reboot --eject
-install
-cdrom
+
+# Use Oracle Linux yum server repositories as installation source
+repo --name="ol9_AppStream" --baseurl="https://yum.oracle.com/repo/OracleLinux/OL9/appstream/x86_64/"
+repo --name="ol9_UEKR7" --baseurl="https://yum.oracle.com/repo/OracleLinux/OL9/UEKR7/x86_64/"
+url --url="https://yum.oracle.com/repo/OracleLinux/OL9/baseos/latest/x86_64"
+
 %addon com_redhat_kdump --enable --reserve-mb='auto'
 
 %end
@@ -29,10 +33,9 @@ network  --hostname=minimal.ks.927.technology
 firstboot --disable
 
 # Generated using Blivet version 3.6.0
+clearpart --all --initlabel --drives=sda
 
-clearpart --all --initlabel
-#ignoredisk  --drives=sda
-
+bootloader --location=mbr --boot-drive=sda
 
 
 # Disk partitioning information
