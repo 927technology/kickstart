@@ -30,7 +30,7 @@ firstboot --disable
 # Generated using Blivet version 3.6.0
 
 clearpart --all --initlabel
-ignoredisk  --drives=sda
+#ignoredisk  --drives=sda
 
 
 
