@@ -57,7 +57,7 @@ exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter pre scripts here
 export branch=main
-export build=ops
+export build=minimal
 export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
 /bin/curl -s ${url}/distro/el/pre/header.txt
@@ -75,7 +75,7 @@ exec < /dev/tty6 > /dev/tty6
 chvt 6
 #enter post scripts here
 export branch=main
-export build=ops
+export build=minimal
 export url=https://raw.githubusercontent.com/927technology/kickstart/${branch}
 
 /bin/curl -s ${url}/distro/el/pre/header.txt
