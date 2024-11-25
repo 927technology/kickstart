@@ -64,7 +64,16 @@ OS Requirements
             Username: nineuser        
             Password: ninepassword
 
-    
+    927 Ops Center - (All): As Container
+    ```
+    inst.ks=https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/ops.ks 
+    ```
+
+
+            URL: http://<ip>/thruk
+            Username: thrukadmin    
+            Password: thrukadmin
+
 
     The resulting command should look like
     ```
