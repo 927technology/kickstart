@@ -4,7 +4,7 @@
 curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/docker.sh | /bin/bash
 
 #install nessus
-curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/nessus.txt
+curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/927ops.txt
 
 
 cat << EOF-Ops > /sbin/ops.sh
