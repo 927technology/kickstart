@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# banner
+curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/el/post/header/hadoop.txt
+
 # commands
 cmd_cat=/usr/bin/cat
 cmd_chmod=/usr/bin/chmod
