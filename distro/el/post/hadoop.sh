@@ -41,7 +41,7 @@ ${cmd_chmod} 700 /home/hadoop/hadoop/.ssh
 ${cmd_chmod} 600 /home/hadoop/hadoop/.ssh/authorized_keys
 
 # accept ssh fingerprint
-${cmd_su} hadoop --login --shell=/bin/sh "--command=/usr/bin/ssh -o StrictHostKeyChecking=no localhost"
+${cmd_su} hadoop --login --shell=/bin/sh "--command=/usr/bin/ssh -o StrictHostKeyChecking=no localhost \"exit\""
 
 # configure hadoop user environment
 ${cmd_cat} << EOF.bashrc >> /home/hadoop/.bashrc
