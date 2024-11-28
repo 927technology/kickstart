@@ -33,12 +33,12 @@ ${cmd_yum} install -y java-21-openjdk java-21-openjdk-devel
 
 # create hadoop user
 ${cmd_useradd} hadoop
-${cmd_su} hadoop --login --shell=/bin/sh "--command=/usr/bin/ssh-keygen -t rsa -N '' -f /home/hadoop/.ssh/id_rsa"
-${cmd_su} hadoop --login --shell=/bin/sh "--command=/bin/cat /home/hadoop/.ssh/id_rsa.pub >> /home/hadoop/.ssh/authorized_keys"
+# ${cmd_su} hadoop --login --shell=/bin/sh "--command=/usr/bin/ssh-keygen -t rsa -N '' -f /home/hadoop/.ssh/id_rsa"
+# ${cmd_su} hadoop --login --shell=/bin/sh "--command=/bin/cat /home/hadoop/.ssh/id_rsa.pub >> /home/hadoop/.ssh/authorized_keys"
 
 # setup ssh
-${cmd_chmod} 700 /home/hadoop/hadoop/.ssh
-${cmd_chmod} 600 /home/hadoop/hadoop/.ssh/authorized_keys
+# ${cmd_chmod} 700 /home/hadoop/hadoop/.ssh
+# ${cmd_chmod} 600 /home/hadoop/hadoop/.ssh/authorized_keys
 
 # accept ssh fingerprint
 #${cmd_su} hadoop --login --shell=/bin/sh "--command=/usr/bin/ssh -o StrictHostKeyChecking=no localhost \"exit\""
