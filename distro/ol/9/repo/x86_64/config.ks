@@ -12,5 +12,5 @@
 
 
 repo --name="Oracle Linux 9 UEK Release 7 x86_64" --baseurl="https://yum$ociregion.$ocidomain/repo/OracleLinux/OL9/UEKR7/$basearch/"
-repo --name="Oracle Linux 9 BaseOS Latest (x86_64) --baseurl="https://yum$ociregion/$ocidomain/repo/OracleLinux/OL9/baseos/latest/$basearch/"
-repo --name="Oracle Linux 9 Application Stream Packages (x86_64) --baseurl="https://yum$ociregion/$ocidomain/repo/OracleLinux/OL9/appstream/$basearch/"
+repo --name="Oracle Linux 9 BaseOS Latest (x86_64)" --baseurl="https://yum$ociregion/$ocidomain/repo/OracleLinux/OL9/baseos/latest/$basearch/"
+repo --name="Oracle Linux 9 Application Stream Packages (x86_64)" --baseurl="https://yum$ociregion/$ocidomain/repo/OracleLinux/OL9/appstream/$basearch/"
