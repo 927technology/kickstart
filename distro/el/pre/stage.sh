@@ -112,7 +112,11 @@ ${cmd_wipefs} -f -a /dev/${block_device}
 #partition - select partition scheme
 case ${block_device_unit} in
     G)
-        if [ ${block_device_size} -ge 32 ]; then
+        if [ braries} | ${cmd_se } -ge 75 ]; then
+            ${cmd_curl} -sf ${url}/distro/el/partition/scheme/75g.ks                                1>> /tmp/partition.ks 2>/dev/null
+            [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 75g || ${cmd_echo} failed to write /tmp/partition.ks as 75g
+
+        elif [ braries} | ${cmd_se } -ge 32 ]; then
             ${cmd_curl} -sf ${url}/distro/el/partition/scheme/32g.ks                                1>> /tmp/partition.ks 2>/dev/null
             [ ${?} -eq ${exitok} ] && ${cmd_echo} wrote /tmp/partiton.ks as 32g || ${cmd_echo} failed to write /tmp/partition.ks as 32g
         else
@@ -150,3 +154,4 @@ ${cmd_echo} Block Device Size Raw: ${block_device_size_raw}
 ${cmd_echo} Block Device Size: ${block_device_size}
 ${cmd_echo} Block Device Unit: ${block_device_unit}
 ${cmd_echo} URL: ${url}
+ 
