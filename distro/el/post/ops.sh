@@ -16,7 +16,7 @@ docker                                                    \
   --hostname ops-manager                                  \
   --rm                                                    \
   --privileged                                            \
-  -e BWS_ACCESS_TOKEN=<changeme>                          \
+  -e BWS_ACCESS_TOKEN=0.bcb6b1ae-262d-49a8-afce-b29c001b0499.mj7neqB2wKKFjE6AQw5spd10oL61CP:KLsyWGNnNwhPpqIBRrx9Xw==                          \
   -e LIB_VERSION=0.4.0                                    \
   -e LOG_SERVER=192.168.1.21                              \
   -e ROLES=manager,web,jobserver                          \
