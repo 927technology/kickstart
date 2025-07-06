@@ -10,15 +10,23 @@ curl -sk https://raw.githubusercontent.com/927technology/kickstart/main/distro/e
 cat << EOF-Ops > /sbin/ops.sh
 docker pull 927technology/ops:latest
 
-docker run                    \
-  -d                          \
-  -e MANAGEMENT=true          \
-  -e WORKER=true              \
-  --name ops-ms               \
-  --hostname ops-ms           \
-  -p 80:80                    \
-  -p 443:443                  \
-  --restart always            \
+docker                                                    \
+  run                                                     \
+  --name ops-manager                                      \
+  --hostname ops-manager                                  \
+  --rm                                                    \
+  --privileged                                            \
+  -e BWS_ACCESS_TOKEN=<changeme>                          \
+  -e LIB_VERSION=0.4.0                                    \
+  -e LOG_SERVER=192.168.1.21                              \
+  -e ROLES=manager,web,jobserver                          \
+  -e SECRET_PROVIDER=bitwarden                            \
+  -e URL=https://927technology.github.io/ops              \
+  -e _lib_root=/usr/local/lib/bash/0.4.0                  \
+  -it                                                     \
+  -p 22:22                                                \
+  -p 80:80                                                \
+  -p 443:443                                              \
   927technology/ops:latest
 
 EOF-Ops
