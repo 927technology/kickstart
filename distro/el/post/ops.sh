@@ -23,8 +23,6 @@ docker                                                    \
   -e SECRET_PROVIDER=bitwarden                            \
   -e URL=https://927technology.github.io/ops              \
   -e _lib_root=/usr/local/lib/bash/0.4.0                  \
-  -it                                                     \
-  -p 22:22                                                \
   -p 80:80                                                \
   -p 443:443                                              \
   927technology/ops:latest
@@ -39,4 +37,5 @@ EOF-Cron
 
 #firewall
 firewall-offline-cmd --add-port=80/tcp
+firewall-offline-cmd --add-port=443/tcp
 
