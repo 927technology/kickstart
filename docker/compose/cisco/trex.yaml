@@ -1,0 +1,8 @@
+services:
+  trex:
+    image: trexcisco/trex
+    cap_add:
+      - ALL
+    privileged: true
+    ports:
+      - 127.0.0.1:4500:4500
