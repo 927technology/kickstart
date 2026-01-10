@@ -6,3 +6,4 @@ services:
     privileged: true
     ports:
       - 127.0.0.1:4500:4500
+    restart: always
